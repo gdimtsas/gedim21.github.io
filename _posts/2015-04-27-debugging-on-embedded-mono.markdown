@@ -1,0 +1,57 @@
+---
+layout: post
+title:  "Debugging on Embedded Mono"
+date:   2015-04-27 20:35:12 +0200
+categories: mono cpp
+---
+
+Following up on a previous post that showed [how to embed Mono in a C++ application]({% post_url 2015-03-30-embedding-mono-in-cpp %}), we will see how it is possible to debug C# code that runs on the host application, using Xamarin Studio (or MonoDevelop).
+
+## Enabling debugging
+
+The following snippet shows how to enable debugging on the Mono runtime:
+
+{% highlight c++ %}
+const char* options[] =
+  {
+    "--soft-breakpoints",
+    "--debugger-agent=transport=dt_socket,address=127.0.0.1:10000"
+  };
+mono_jit_parse_options(sizeof(options) / sizeof(char*), (char**) options);
+mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+
+MonoDomain* monoDomain = mono_jit_init_version("domain",
+                                               "v4.0.30319");
+{% endhighlight %}
+
+In essence, the line `mono_debug_init(MONO_DEBUG_FORMAT_MONO);` is what enables debugging. It must be inserted before the `mono_jit_init` call. If you run your application using the above code you will get:
+
+{% highlight text %}
+debugger-agent: Unable to connect to 127.0.0.1:10000
+{% endhighlight %}
+
+That is because the debugger is not listening to the aforementioned address and port. You have to start the debugger prior to running your application.
+
+## Starting the Debugger
+
+First of all, add an environment variable named `MONODEVELOP_SDB_TEST` with value `Y`. This is needed in order to enable the menu entry *Custom Command Mono Soft Debugger*, which we will use to launch the debugger.
+
+Next, we have to generate the .mdb file for our assembly, which contains the debug symbols that the debugger uses to map a method to a position in a source file, and to get line numbers in stack traces. This step is needed only on Windows, since .mdb files are generated automatically on Linux systems. When you do a debug build of a C# project, a .pdb file is generated for the assembly. We have to convert this .pdb file to a .mdb one. Mono provides a tool for this, naturally called pdb2mdb, located in the lib\mono\4.5 folder of the Mono installation. For our convenience, we will add a custom build on for our project, that will execute pdb2mdb on every debug build:
+custom build step
+Adding a custom build step
+
+We are basically executing pdb2mdb on the target of the project and storing the .mdb file on the target’s path.
+
+> pdb2mdb has a dependency to the Mono.Cecil assembly which is not included in the Mono installation.
+
+The next step is to actually launch the debugger. This is done from the menu item:
+
+Run → Run With → Custom Command Mono Soft Debugger
+launch debugger
+Launching the Debugger
+
+Use the same address and port that you used in the C++ code and hit Listen.
+
+> If your assembly is compiled to a library, the Run menu item is not available in Xamarin Studio. To overcome this, add a Custom Command in Project Options → Run → Custom Commands and the debugger menu items will show up.
+
+Now that the debugger is listening to the provided address and port, we can start our C++ application. The program’s execution will now be paused on any breakpoints you set.
