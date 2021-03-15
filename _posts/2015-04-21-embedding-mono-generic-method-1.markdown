@@ -2,7 +2,8 @@
 layout: post
 title:  "Embedded Mono: Invoking a C# generic method (Part 1) "
 date:   2015-04-21 20:35:12 +0200
-categories: mono cpp
+tag: mono C++
+categories: programming tutorial
 ---
 
 (Edit 8/7/2015: Part 2 of this tutorial can be found [here]({% post_url 2015-07-09-embedding-mono-generic-method-2 %}), showing an alternative solution without using C# helper methods)
