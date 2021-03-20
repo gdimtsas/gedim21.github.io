@@ -18,6 +18,13 @@ social:
 
 show_excerpts: true
 
+webmaster_verifications:
+  google: VW90zWfFHze5TRzAByStSETr3hhlTjqPe06d0KbveYo
+  bing: 26A8D98C3125B820FD3A11A67FC2636C
+  #alexa: 1234
+  #yandex: 1234
+  #baidu: 1234
+
 # Build settings
 plugins:
   - jekyll-feed
