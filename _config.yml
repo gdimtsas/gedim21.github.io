@@ -25,6 +25,8 @@ webmaster_verifications:
   #yandex: 1234
   #baidu: 1234
 
+google_analytics: G-ED0SV641NW
+
 # Build settings
 plugins:
   - jekyll-feed
