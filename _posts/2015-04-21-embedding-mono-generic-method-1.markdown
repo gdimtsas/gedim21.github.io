@@ -6,9 +6,9 @@ tag: mono C++
 categories: programming tutorial
 ---
 
-(Edit 8/7/2015: Part 2 of this tutorial can be found [here]({% post_url 2015-07-09-embedding-mono-generic-method-2 %}), showing an alternative solution without using C# helper methods)
-
 On [a previous post]({% post_url 2015-03-30-embedding-mono-in-cpp %}) we saw how to embed the Mono runtime in a C++ application, load some C# classes and invoke methods on them. However, when you want to invoke generic methods, things become slightly more complicated.
+
+(Edit 8/7/2015: Part 2 of this tutorial can be found [here]({% post_url 2015-07-09-embedding-mono-generic-method-2 %}), showing an alternative solution without using C# helper methods)
 
 Let's say we want to invoke the GenericMethod<T>(T t) from the following class:
 
