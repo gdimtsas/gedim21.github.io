@@ -25,7 +25,9 @@ webmaster_verifications:
   #yandex: 1234
   #baidu: 1234
 
-google_analytics: G-ED0SV641NW
+google:
+  analytics: G-ED0SV641NW
+  adsense: ca-pub-4733788787541071
 
 # Build settings
 plugins:
