@@ -5,7 +5,7 @@ description: A docker-compose to easily start a MongoDB cluster for development 
 date:   2021-11-13 20:43:12 +0200
 tag: docker docker-compose mongodb
 categories: programming tutorial
-published: false
+published: true
 ---
 
 In this post we'll explore how to start up a local MongoDB cluster using Docker and Docker Compose.
