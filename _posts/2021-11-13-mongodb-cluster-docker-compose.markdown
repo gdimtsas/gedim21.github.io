@@ -1,35 +1,30 @@
 ---
-layout: post
-title:  "Docker-compose for MongoDB cluster"
+layout: single
+title:  "Docker-compose for a MongoDB cluster"
 description: A docker-compose to easily start a MongoDB cluster for development purposes
 date:   2021-11-13 20:43:12 +0200
-tag: docker docker-compose mongodb
-categories: programming tutorial
-published: true
+tags: docker docker-compose mongodb
+categories: devops tutorial
 ---
 
 In this post we'll explore how to start up a local MongoDB cluster using Docker and Docker Compose.
 
-**TODO** check if key can be skipped
-
 ## Generate the node communication key
 
-First, we'll need a key that the cluster nodes will use to communicate with each other.
+First, you'll need a key that the cluster nodes will use to communicate with each other.
 
-A key's length must be between 6 and 1024 characters and may only contain characters in the base64 set. We can generate such a key using openssl:
+The key's length must be between 6 and 1024 characters and may only contain characters in the base64 set. We can generate such a key using openssl:
 
 {% highlight bash %}
 openssl rand -base64 768 > mongo-replication.key
 {% endhighlight %}
 
-Then reduce the permissions on the key, else MongoDB will complain that the key is too open.  FIXME
+Then reduce the permissions on the key, else MongoDB will complain that the key is too open.
 
 {% highlight bash %}
 chmod 400 mongo-replication.key
-{% endhighlight %}
-
 sudo chown 999:999 mongo-replication.key
-TODO
+{% endhighlight %}
 
 ## Starting the containers
 
@@ -108,29 +103,74 @@ CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS       
 
 With the nodes of the cluster up, we have to initialize the replica set next:
 
-init-replica-set.js
+Add the content below to a file called **init-replica-set.js**:
 
 {% highlight js %}
 db.auth('admin', 'admin');
 rs.initiate(
     {_id: "rs1", version: 1,
         members: [
-            { _id: 0, host : "mongodb_1:27017" },
-            { _id: 1, host : "mongodb_2:27017" },
-            { _id: 2, host : "mongodb_3:27017" }
+            { _id: 0, host : "mongodb_1:27017", priority: 1 },
+            { _id: 1, host : "mongodb_2:27017", priority: 0 },
+            { _id: 2, host : "mongodb_3:27017", priority: 0 }
         ]
     }
 );
 {% endhighlight %}
 
+and execute it against the MongoDB cluster using:
 
-docker run --rm --network mongodb_default mongo:5 mongo --username admin --password admin --host mongodb_1:27017  --authenticationDatabase admin admin  --eval "$(< init-replica-set.js)"
+{% highlight bash %}
+docker run --rm --network mongodb_default mongo:5 mongosh --username admin --password admin --host mongodb_1:27017  --authenticationDatabase admin admin --eval "$(< init-replica-set.js)"
+{% endhighlight %}
 
-Inspect the replica set status
+The response from MongoDB will be a simple ```{ "ok" : 1 }```
 
-docker run --rm --network mongodb_default mongo:5 mongo --username admin --password admin --host mongodb_1:27017  --authenticationDatabase admin admin  --eval "rs.status()"
+Use the following command to inspect the replica set status:
 
-## Create a db and user
+{% highlight bash %}
+docker run --rm --network mongodb_default mongo:5 mongosh --username admin --password admin --host mongodb_1:27017  --authenticationDatabase admin admin --eval "rs.status()"
+{% endhighlight %}
+
+The response should be something like this:
+
+{% highlight json %}
+{
+    "set" : "rs1",
+    ...
+    "members" : [
+    {
+      "_id" : 0,
+      "name" : "mongodb_1:27017",
+      "health" : 1,
+      "state" : 1,
+      "stateStr" : "PRIMARY",
+      ...
+    },
+    {
+      "_id" : 1,
+      "name" : "mongodb_2:27017",
+      "health" : 1,
+      "state" : 2,
+      "stateStr" : "SECONDARY",
+      ...
+    },
+    {
+      "_id" : 2,
+      "name" : "mongodb_3:27017",
+      "health" : 1,
+      "state" : 2,
+      "stateStr" : "SECONDARY",
+      ...
+    }
+  ]
+  ...
+}
+{% endhighlight %}
+
+## Create a user
+
+The replica set is up and running; next step, create a user with the ```dbOwner``` role. This role combines the ```readWrite```, ```dbAdmin``` and ```userAdmin``` roles, allowing the user to do pretty much anything to the database.
 
 {% highlight js %}
 db.auth('admin', 'admin');
@@ -147,19 +187,23 @@ db.createUser({
 });
 {% endhighlight %}
 
+Add the above to a file called **init-user.js** and execute it against the MongoDB cluster using:
 
-docker run --rm --network mongodb_default mongo:5 mongo --username admin --password admin --host mongodb_1:27017  --authenticationDatabase admin admin  --eval "$(< init-database.js)"
+{% highlight bash %}
+docker run --rm --network mongodb_default mongo:5 mongosh --username admin --password admin --host mongodb_1:27017 --authenticationDatabase admin admin --eval "$(< init-user.js)"
+{% endhighlight %}
 
-if error: Error: couldn't add user: not master
-then
+## Connecting to the replica set
 
-find the primary node
-docker run --rm --network mongodb_default mongo:5 mongo --username admin --password admin --host mongodb_1:27017  --authenticationDatabase admin admin  --eval "rs.status()" | grep -B 3 PRIMARY
+### Using REPL
 
-
-run REPL
-
+{% highlight bash %}
 docker run --rm -i -t --network mongodb_default mongo:5 mongosh --username admin --password admin --host mongodb_1,mongodb_2,mongodb_3 --authenticationDatabase admin admin
+{% endhighlight %}
+
+### Connection string
+
+```mongodb://my_user:my_pass@mongodb_1:27017,mongodb_2:27017,mongodb_3:27017/my_database?replicaSet=rs1```
 
 add the following hosts to your hosts file
 
@@ -171,4 +215,8 @@ add the following hosts to your hosts file
 
 ## Taking it all down
 
+Take down containers and delete their corresponding volumes:
+
+{% highlight bash %}
 docker-compose down -v
+{% endhighlight %}

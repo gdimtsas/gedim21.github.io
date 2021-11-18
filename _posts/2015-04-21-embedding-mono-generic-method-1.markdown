@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: single
 title:  "Embedded Mono: Invoking a C# generic method (Part 1) "
 date:   2015-04-21 20:35:12 +0200
-tag: mono C++
+tags: mono C++
 categories: programming tutorial
 ---
 

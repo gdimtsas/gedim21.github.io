@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: single
 title:  "Embedding Mono in a C++ application"
 date:   2015-03-30 20:35:12 +0200
-tag: mono C++
+tags: mono C++
 categories: programming tutorial
 ---
 
