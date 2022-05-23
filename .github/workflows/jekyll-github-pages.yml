@@ -7,7 +7,7 @@ on:
 
 jobs:
   jekyll:
-    runs-on: macos-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: 📂 setup
         uses: actions/checkout@v2
