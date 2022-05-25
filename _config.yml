@@ -105,13 +105,12 @@ analytics:
 author:
   name             : "Giorgos Dimtsas"
   avatar           : "/assets/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Software engineer"
+  bio              : "Lead software engineer"
   location         : "Athens, Greece"
-  email            : "gedim21@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope"
-      #url: "mailto:gedim21@gmail.com"
+      url: "mailto:gedim21@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
