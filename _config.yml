@@ -48,7 +48,7 @@ comments:
     category_name        : "General" # Full text name of the category
     category_id          : "DIC_kwDOFMAzn84CPSXl" # Shown during giscus setup at https://giscus.app
     discussion_term      : "pathname" # "pathname" (default), "url", "title", "og:title"
-    reactions_enabled    : "'1'" # '1' for enabled (default), '0' for disabled
+    reactions_enabled    : # '1' for enabled (default), '0' for disabled
     theme                : "dark" # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
   staticman:
     branch               : # "master"
