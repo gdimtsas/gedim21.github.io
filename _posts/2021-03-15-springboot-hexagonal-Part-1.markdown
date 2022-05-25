@@ -21,7 +21,7 @@ Avoid entanglement between business logic and the interaction external entities.
 
 ### Domain
 
-{% highlight java %}
+```java
 package com.example.hexa.domain;
 
 
@@ -62,8 +62,7 @@ public class Account {
         balance = balance.subtract(amount);
     }
 }
-
-{% endhighlight %}
+```
 
 ### Use Cases
 

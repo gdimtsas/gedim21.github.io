@@ -7,6 +7,8 @@ tags: docker docker-compose kafka
 categories: devops tutorial
 ---
 
+Let's check how to set up a local kafka cluster using Docker and Docker Compose.
+
 ## Starting the containers
 
 We will startup three [kafka](https://kafka.apache.org/) instances, at ports 9091, 9092 and 9093; one instance of [zookeeper](https://zookeeper.apache.org/) at port 2181; and one instance of [kafdrop](https://github.com/obsidiandynamics/kafdrop) at port 9000.
