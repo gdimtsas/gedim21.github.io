@@ -1,10 +1,15 @@
 ---
 layout: single
-title:  "Docker-compose for a local MongoDB cluster"
+title: "Docker-compose for a local MongoDB cluster"
 description: A docker-compose to easily start a MongoDB cluster for development purposes
-date:   2021-11-13 20:43:12 +0200
-tags: docker docker-compose mongodb
-categories: devops tutorial
+date: 2021-11-13 20:43:12 +0200
+tags: 
+  - docker 
+  - docker-compose 
+  - mongodb
+categories: 
+  - devops
+  - tutorial
 ---
 
 In this post we'll explore how to set up MongoDB replica set using Docker and Docker Compose.

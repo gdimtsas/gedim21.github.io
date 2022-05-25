@@ -1,9 +1,13 @@
 ---
 layout: single
-title:  "Embedding Mono in a C++ application"
-date:   2015-03-30 20:35:12 +0200
-tags: mono C++
-categories: programming tutorial
+title: "Embedding Mono in a C++ application"
+date: 2015-03-30 20:35:12 +0200
+tags: 
+  - mono 
+  - c++
+categories: 
+  - programming 
+  - tutorial
 ---
 
 On this post we will see how it is possible to embed the Mono runtime in a C++ application.

@@ -1,9 +1,13 @@
 ---
 layout: single
-title:  "Debugging on Embedded Mono"
-date:   2015-04-27 20:35:12 +0200
-tags: mono C++
-categories: programming tutorial
+title: "Debugging on Embedded Mono"
+date: 2015-04-27 20:35:12 +0200
+tags: 
+  - mono
+  - c++
+categories: 
+  - programming
+  - tutorial
 ---
 
 Following up on a previous post that showed [how to embed Mono in a C++ application]({% post_url 2015-03-30-embedding-mono-in-cpp %}), we will see how it is possible to debug C# code that runs on the host application, using Xamarin Studio (or MonoDevelop).

@@ -1,10 +1,15 @@
 ---
+title: Docker-compose for a local kafka cluster
 layout: single
-title:  "Docker-compose for a local kafka cluster"
 description: A docker-compose to easily start a Kafka cluster for development purposes
-date:   2022-05-17 21:16:21 +0200
-tags: docker docker-compose kafka
-categories: devops tutorial
+date: '2022-05-17 21:16:21 +0200'
+tags:
+  - docker
+  - docker-compose
+  - kafka
+categories:
+  - devops
+  - tutorial
 ---
 
 Let's check how to set up a local kafka cluster using Docker and Docker Compose.

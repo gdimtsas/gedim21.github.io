@@ -1,10 +1,13 @@
 ---
 layout: single
-title:  "Model-View-Controller (MVC 1.0) in JavaEE 8"
+title: "Model-View-Controller (MVC 1.0) in JavaEE 8"
 description: A brief introduction to the new Model-View-Controller specification (JSR 371)
-date:   2015-05-22 20:35:12 +0200
-tags: java
-categories: programming tutorial
+date: 2015-05-22 20:35:12 +0200
+tags: 
+  - java
+categories: 
+  - programming 
+  - tutorial
 ---
 
 JavaEE 8 is scheduled to ship with a new model-view-controller API, named MVC 1.0. It offers a way to build action-based web frameworks on the Java EE platform. The MVC API is built on top of JAX-RS and integrates seamlessly with CDI and Bean Validation. This post serves as a brief overview to this new Java MVC API.
