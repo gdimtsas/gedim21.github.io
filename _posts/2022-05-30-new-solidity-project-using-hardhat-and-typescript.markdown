@@ -187,3 +187,5 @@ Congratulations, the sample smart contract Greeter is now deployed at the addres
 # Summary
 
 In the course of this tutorial, we saw how to setup a new project for solidity development. We created our project using Hardhat, we compiled and tested a smart contract. Finally, we deployed the smart contract on a locally running testnet. 
+
+Source for this tutorial can be found at [https://github.com/gedim21/blog/tree/master/hardhat](https://github.com/gedim21/blog/tree/master/hardhat).
