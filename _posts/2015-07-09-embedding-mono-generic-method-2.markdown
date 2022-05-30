@@ -2,6 +2,8 @@
 layout: single
 title: "Embedded Mono: Invoking a C# generic method (Part 2) "
 date: 2015-07-09 20:35:12 +0200
+header:
+  teaser: /assets/images/mono.png
 tags: 
   - mono
   - c++

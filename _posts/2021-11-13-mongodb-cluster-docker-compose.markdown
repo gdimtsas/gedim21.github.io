@@ -3,6 +3,8 @@ layout: single
 title: "Docker-compose for a local MongoDB cluster"
 description: A docker-compose to easily start a MongoDB cluster for development purposes
 date: 2021-11-13 20:43:12 +0200
+header:
+  teaser: /assets/images/mongodb.png
 tags: 
   - docker 
   - docker-compose 
