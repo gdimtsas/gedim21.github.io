@@ -1,5 +1,4 @@
 ---
-layout: single
 title: "Build a frontend to interact with a smart contract"
 description: A tutorial on how to create a frontend app to interact with a smart contact using react.js
 date: 2022-05-31 16:33:54 +0200

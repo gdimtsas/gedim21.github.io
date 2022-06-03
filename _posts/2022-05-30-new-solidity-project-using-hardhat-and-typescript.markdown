@@ -1,5 +1,4 @@
 ---
-layout: single
 title: "Setup a Solidity project using Hardhat and Typescript "
 description: A tutorial on how to create a new project for smart contracts development using Solidity, Hardhat and Typescript
 date: 2022-05-29 16:33:54 +0200
@@ -45,7 +44,7 @@ By far the easiest way to get started with Hardhat, is to use its CLI to generat
 $ npx hardhat
 ```
 
-```bash
+```text
 888    888                      888 888               888
 888    888                      888 888               888
 888    888                      888 888               888

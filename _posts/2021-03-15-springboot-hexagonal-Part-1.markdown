@@ -1,5 +1,4 @@
 ---
-layout: single
 title: "Hexagonal architecture with Spring Boot - Part 1"
 date: 2021-03-15 20:35:12 +0200
 tags: 

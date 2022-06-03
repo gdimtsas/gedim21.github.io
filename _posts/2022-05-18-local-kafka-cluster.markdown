@@ -1,6 +1,5 @@
 ---
 title: Docker-compose for a local kafka cluster
-layout: single
 description: A docker-compose to easily start a Kafka cluster for development purposes
 date: '2022-05-17 21:16:21 +0200'
 header:

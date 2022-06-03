@@ -1,5 +1,4 @@
 ---
-layout: single
 title: "Debugging on Embedded Mono"
 date: 2015-04-27 20:35:12 +0200
 tags: 
