@@ -259,3 +259,7 @@ On the Transactions tab, you can see the transaction that created the contract.
 On the ERC-20 Tokens tab, you can see that your address now has 100 TUT tokens.
 
 ![Erc20 Tokens table](/assets/images/erc-20/tokens.png)
+
+# Sources
+
+Sources for this tutorial can be found [here](https://github.com/gedim21/blog/tree/master/hardhat-erc20).
