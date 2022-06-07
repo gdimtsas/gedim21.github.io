@@ -63,9 +63,9 @@ Check these sample implementations:
 
 # Creating the token
 
-## Install openzeppelin contracts
-
 We are going to extend on the [OpenZeppelin](https://www.openzeppelin.com/) implementation to build our own token. OpenZeppelin contracts are battle tested and used by many successful projects.
+
+## Install OpenZeppelin contracts
 
 First, we have to install the OpenZeppelin dependency on our project:
 
