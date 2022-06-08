@@ -1,14 +1,15 @@
 ---
-title: "Embedded Mono: Invoking a C# generic method (Part 1) "
+title: "Embedded Mono: Invoking a C# generic method (Part 1)"
 date: 2015-04-21 20:35:12 +0200
 header:
-  teaser: /assets/images/mono.png
+  teaser: /assets/images/embedded-mono-generic-method-part-1/teaser.png
 tags: 
   - mono
   - c++
 categories: 
   - programming
   - tutorial
+toc: false
 ---
 
 On [a previous post]({% post_url 2015-03-30-embedding-mono-in-cpp %}) we saw how to embed the Mono runtime in a C++ application, load some C# classes and invoke methods on them. However, when you want to invoke generic methods, things become slightly more complicated.

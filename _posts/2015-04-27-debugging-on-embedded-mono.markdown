@@ -1,6 +1,8 @@
 ---
-title: "Debugging on Embedded Mono"
+title: Debugging on Embedded Mono
 date: 2015-04-27 20:35:12 +0200
+header:
+  teaser: /assets/images/embedded-mono-debugging/teaser.png
 tags: 
   - mono
   - c++
@@ -11,7 +13,7 @@ categories:
 
 Following up on a previous post that showed [how to embed Mono in a C++ application]({% post_url 2015-03-30-embedding-mono-in-cpp %}), we will see how it is possible to debug C# code that runs on the host application, using Xamarin Studio (or MonoDevelop).
 
-## Enabling debugging
+# Enabling debugging
 
 The following snippet shows how to enable debugging on the Mono runtime:
 
@@ -36,7 +38,7 @@ debugger-agent: Unable to connect to 127.0.0.1:10000
 
 That is because the debugger is not listening to the aforementioned address and port. You have to start the debugger prior to running your application.
 
-## Starting the Debugger
+# Starting the Debugger
 
 First of all, add an environment variable named `MONODEVELOP_SDB_TEST` with value `Y`. This is needed in order to enable the menu entry *Custom Command Mono Soft Debugger*, which we will use to launch the debugger.
 

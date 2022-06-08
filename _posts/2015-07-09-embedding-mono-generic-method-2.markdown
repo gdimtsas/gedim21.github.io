@@ -1,14 +1,15 @@
 ---
-title: "Embedded Mono: Invoking a C# generic method (Part 2) "
+title: "Embedded Mono: Invoking a C# generic method (Part 2)"
 date: 2015-07-09 20:35:12 +0200
 header:
-  teaser: /assets/images/mono.png
+  teaser: /assets/images/embedded-mono-generic-method-part-2/teaser.png
 tags: 
   - mono
   - c++
 categories: 
   - programming
   - tutorial
+toc: false
 ---
 
 A while ago I wrote about [how to invoke a C# generic method]({% post_url 2015-04-21-embedding-mono-generic-method-1 %}), by using a helper method in the assembly. In this post, we will see how to invoke generic methods using solely the Mono embedding API. A much preferred alternative, since you don’t pollute your assemblies with helper methods that are used by C++ only.

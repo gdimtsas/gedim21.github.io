@@ -1,6 +1,8 @@
 ---
-title: "Embedding Mono in a C++ application"
+title: Embedding Mono in a C++ application
 date: 2015-03-30 20:35:12 +0200
+header:
+  teaser: /assets/images/embedded-mono-in-cpp/teaser.png
 tags: 
   - mono 
   - c++
@@ -11,18 +13,18 @@ categories:
 
 On this post we will see how it is possible to embed the Mono runtime in a C++ application.
 
-## Why Mono?
+# Why Mono?
 
 Mono can extend the scripting capabilities of your C++ application by providing access to a wide range of languages like C#, F#, Python and Ruby ([full list of supported languages](http://www.mono-project.com/docs/about-mono/languages/)). It offers a safe, managed environment with garbage collection, and better performance than most scripting languages.
 
-## How to include Mono in your project's configuration
+# How to include Mono in your project's configuration
 
 1. First of all, download and install Mono from [http://www.mono-project.com/download/](http://www.mono-project.com/download/).
 2. Assuming you installed it at `%MONO_ROOT%`, add the folder `%MONO_ROOT%/include/mono-2.0` to your project's include folders.
 3. Then, link against the `%MONO_ROOT%/lib/mono-2.0.lib` library.
 4. Finally, the `mono-2.0.dll` must be in the DLL search path in order to run your application. This dll is not directly available. In the `%MONO_ROOT%/bin` folder you will find the `libmonoboehm-2.0.dll` and `libmonosgen-2.0.dll`. Copy either (depending on which GC implementation you prefer) on your application's path and rename it to `mono-2.0.dll`.
 
-## A sample C# class
+# A sample C# class
 
 Now, let's assume that we have the following C# class, compiled in an assembly called Example.dll. This will be the class that we will interact with from the C++ host application.
 
@@ -59,8 +61,8 @@ namespace Example
 }
 {% endhighlight %}
 
-## Embedding Mono
-### Initialization
+# Embedding Mono
+## Initialization
 
 The first thing we need to do, is to initialize the Mono runtime and load our assembly:
 
@@ -81,7 +83,7 @@ MonoAssembly* assembly = mono_domain_assembly_open(monoDomain,
 MonoImage* monoImage = mono_assembly_get_image(assembly);
 {% endhighlight %}
 
-### Creating C# objects
+## Creating C# objects
 
 In order to use the Entity class, we have to construct an instance of it:
 
@@ -97,7 +99,7 @@ MonoObject* entityInstance = mono_object_new(monoDomain, entityClass);
 
 The instance is not yet created. The only thing mono_object_new does is to allocate enough memory for one Entity object. In order to instanciate the object, we have to call a constructor.
 
-### Invoking constructor and methods
+## Invoking constructor and methods
 
 Constructors and methods are invoked in the same way: first obtain a pointer to the MonoMethod representing the constructor or method, prepare any arguments and finally call mono_runtime_invoke:
 
@@ -157,7 +159,7 @@ std::cout << "Value of 'name' is " << c << std::endl;
 mono_free(c);
 {% endhighlight %}
 
-### Getting/Setting fields
+## Getting/Setting fields
 
 The API also allows us to set/get field values:
 
@@ -174,7 +176,7 @@ mono_field_get_value(entityObject, idField, &result);
 std::cout << "Value of 'Id' is " << result << std::endl;
 {% endhighlight %}
 
-### Shutting down
+## Shutting down
 
 When done with Mono we can shut it down in order to release any used resources:
 
@@ -196,7 +198,7 @@ Value of 'Id' is 42
 Entity Giorgos destructed
 {% endhighlight %}
 
-## Summary
+# Summary
 
 I hope this post can help you in any way. You can find the full source code here.
 
