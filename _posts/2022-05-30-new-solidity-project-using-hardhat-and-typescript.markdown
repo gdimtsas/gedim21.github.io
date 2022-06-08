@@ -1,5 +1,5 @@
 ---
-title: "Setup a Solidity project using Hardhat and Typescript "
+title: Setup a Solidity project using Hardhat and Typescript
 description: A tutorial on how to create a new project for smart contracts development using Solidity, Hardhat and Typescript
 date: 2022-05-29 16:33:54 +0200
 header:
@@ -9,6 +9,7 @@ tags:
   - solidity
   - web3
   - hardhat
+  - smart contracts
 categories:
   - tutorial
 ---

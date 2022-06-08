@@ -3,7 +3,7 @@ title: How to create a ERC-20 token and deploy it to the Ethereum network
 description: A tutorial on how to create and deploy a ERC-20 token on the ethereum network, using OpenZeppelin contracts
 date: 2022-06-07 17:34:58 +0200
 header:
-  teaser: 
+  teaser: /assets/images/hardhat.jpg
 tags: 
   - typescript
   - solidity
