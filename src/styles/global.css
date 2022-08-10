@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.dark {
+  @apply bg-slate-900;
+}
+
+body.light {
+  @apply bg-slate-100;
+}
+
+button.sharing {
+  @apply px-4 py-2 font-semibold text-white inline-flex items-center space-x-2 rounded;
+}
+
+pre.prism-code {
+  @apply min-w-0 mb-4 rounded overflow-auto p-4;
+}
+
+code {
+  @apply px-2 font-semibold break-words;
+}
