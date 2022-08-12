@@ -12,13 +12,11 @@ Open `http://localhost:8000` with your browser to see the result.
 
 ### Requirements
 
-- Node.js >= 14.17
+- Node.js >= 16.15
 - Yarn 1 (Classic)
 
 ### Directory Structure
 
-- [`__helpers__`](./__helpers__/) — Helpers files for testing configuration.
-- [`__mocks__`](./__mocks__/) — Mocks for testing.
 - [`.github`](.github) — GitHub configuration including the CI workflow.
 - [`src`](./src) — Application source code, including pages, components, styles.
 
@@ -47,6 +45,7 @@ import avatar from '@/static/avatar.png';
 ## Fonts
 
 Fonts are imported from [https://github.com/fontsource/fontsource](https://github.com/fontsource/fontsource)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
