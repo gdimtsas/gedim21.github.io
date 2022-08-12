@@ -1,7 +1,8 @@
 import { SocialLink } from '@/model';
 import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
+import { OutboundLink } from 'gatsby-plugin-google-gtag';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 const AuthorBar = () => {
@@ -56,10 +57,10 @@ const AuthorBar = () => {
           {site.siteMetadata.owner.social != null &&
             site.siteMetadata.owner.social.map((social: SocialLink) => (
               <li key={social.label} className="inline md:block">
-                <Link target={'_blank'} to={social.uri}>
+                <OutboundLink target={'_blank'} href={social.uri}>
                   <FontAwesomeIcon icon={social.icon} className="mr-2" />
                   <span className="hidden md:inline">{social.label}</span>
-                </Link>
+                </OutboundLink>
               </li>
             ))}
         </ul>

@@ -1,5 +1,5 @@
 import type { GatsbyConfig } from 'gatsby';
-import type { Author, SiteMetadata, SocialLink } from './src/model/'
+import type { Person, SocialLink } from './src/model/'
 
 const socialLinks: SocialLink[] = [
   {label: 'Email', uri: 'mailto:gedim21@gmail.com', icon: ['fa', 'envelope']},
@@ -8,7 +8,7 @@ const socialLinks: SocialLink[] = [
   {label: 'LinkedIn', uri: 'https://www.linkedin.com/in/giorgosdimtsas', icon: ['fab', 'linkedin']}
 ];
 
-const me: Author = {
+const me: Person = {
   name: 'Giorgos',
   surname: 'Dimtsas',
   title: 'Lead Software Engineer',
@@ -162,7 +162,7 @@ const config: GatsbyConfig = {
             timeToRead: node.timeToRead,
           })),
       },
-    }, 
+    },
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
@@ -187,7 +187,7 @@ const config: GatsbyConfig = {
           respectDNT: false,
           // Avoids sending pageview hits from custom paths
           exclude: ["/preview/**", "/do-not-track/me/too/"],
-          // Defaults to https://www.googletagmanager.com
+        // Defaults to https://www.googletagmanager.com
           //origin: "YOUR_SELF_HOSTED_ORIGIN",
         },
       },
