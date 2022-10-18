@@ -1,0 +1,136 @@
+---
+title: How to free up disk space in Arch Linux
+description: How to clean unwanted files and reclaim valuable disk space in Arch Linux 
+date: 2022-10-18 20:35:12 +0200
+image: ../images/how-to-free-up-disk-space-in-archlinux/teaser.png
+tags:
+  - linux
+  - pacman
+  - archlinux
+categories:
+  - linux
+---
+
+In this post you'll learn how to clean your Arch Linux system and reclaim valuable disk space.
+
+## Remove unused packages
+
+Many packages in your system are installed as dependencies of other packages. If you remove such a package, its dependencies will not be removed automatically.
+To check for such unused dependencies run:
+
+```bash
+sudo pacman -Qtdq
+```
+
+The _-Q_ option will query the packages database for unused packages (_-t_) that were installed as dependencies (_-d_). The _-q_ option will display just the packages names, which is useful for running this command as a script like below.
+
+To remove the above packages run:
+
+```bash
+sudo pacman -Rs $(pacman -Qtdq)
+```
+
+The _-s_ option will remove packages recursively, meaning that it will also remove the dependencies of the unused packages as long as they are not needed by another package and they are not installed explicitly by the user.
+
+## Clean the package cache
+
+Pacman stores its downloaded packages in /var/cache/pacman/pkg/ and does not remove old or uninstalled versions automatically.
+You can either remove old packages manually or use a script.
+
+### The manual way
+
+Check the packages that exist in the pacman cache:
+
+```bash
+ls /var/cache/pacman/pkg/
+```
+
+To remove all cached packages except from those that are installed
+
+```bash
+sudo pacman -Sc
+```
+
+If you want to remove all cached packages
+
+```bash
+sudo pacman -Scc
+```
+
+### Using paccache
+
+An alternative to the manual removal of packages is _paccache_; a script that deletes all cached versions of installed and uninstalled packages, except for the most recent three, by default.
+First install [paccache](https://man.archlinux.org/man/paccache.8)
+
+```bash
+sudo pacman -S pacman-contrib
+```
+
+Check which packages can be removed
+
+```bash
+paccache -d
+```
+
+Delete the packages
+
+```bash
+paccache -r
+```
+
+#### Run paccache automatically
+
+You can also enable and start the paccache.timer service to automatically remove unused packages weekly:
+
+```bash
+sudo systemctl enable paccache.timer
+sudo systemctl start paccache.timer
+```
+
+## Clean home directory cache
+
+Your applications will use the _.cache_ directory in your home directory to store cached data. Usually it's safe to remove files from here as applications will recreate any needed data. Proceed with caution though.
+
+You can use the following command to check which directories are taking up most of the space
+
+```bash
+du --max-depth=1 ~/.cache | sort -hr
+```
+
+Alternatively you can use the [ndcu](https://dev.yorhel.nl/ncdu) tool, a disk analyzer with an ncurses interface.
+
+## Find and remove duplicate files
+
+[rmlint](https://github.com/sahib/rmlint) is a handy tool that scans your filesystem to find duplicate files and directories.
+
+> rmlint will also detect empty directories and broken symbolic links. While they don't take any meaningful disk space, they still clutter your system.
+
+Install rmlint using:
+
+```bash
+sudo pacman -S rmlint
+```
+
+and run it:
+
+```bash
+rmlint -g [directory]
+```
+
+After it completes, rmlint will create a ```rmlint.sh``` script in the directory where it was executed. You can inspect the script to check what is going to be deleted, manually remove any files you want to keep, and finally execute the script.
+
+## Clean Systemd journal
+
+Systemd logs are stored in the `/var/log/journal` directory. By default, systemd will retain logs up to 10% of the size of the filesystem, capped to 4G.
+
+Keep the most recent 100M of logs
+
+```bash
+sudo journalctl --vacuum-size=100M
+```
+
+Delete all logs older than one week
+
+```bash
+sudo journalctl --vacuum-time=1week
+```
