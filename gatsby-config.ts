@@ -46,6 +46,12 @@ const config: GatsbyConfig = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        icon: 'static/static-images/logo.png'
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
