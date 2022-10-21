@@ -3,11 +3,7 @@ import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import Tag from '@/components/blog/Tag';
 
-interface PostCardProps {
-  post: BlogPost;
-}
-
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post }: { post: BlogPost }) => {
   return (
     <div className="md:max-w-lg bg-white rounded-lg border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
       <Link to={`/blog/${post.slug}`}>

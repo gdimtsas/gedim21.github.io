@@ -3,11 +3,7 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tag from '../Tag';
 
-interface PostTagsProps {
-  post: BlogPost;
-}
-
-const PostTags = ({ post }: PostTagsProps) => {
+const PostTags = ({ post }: { post: BlogPost }) => {
   return (
     <>
       <span>

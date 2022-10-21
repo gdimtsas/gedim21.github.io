@@ -1,57 +1,15 @@
 import { graphql, PageProps } from 'gatsby';
 import Layout from '@/components/Layout';
-import { BlogPost } from '@/model/BlogPost';
-import { IGatsbyImageData } from 'gatsby-plugin-image';
+import { BlogPost, BlogPostMdxNode, mdxToBlogPost } from '@/model/BlogPost';
 import FeaturedContent from '@/components/blog/FeaturedContent';
 import Topics from '@/components/blog/Topics';
 import LatestPosts from '@/components/blog/LatestPosts';
 
-type MdxNode = {
-  frontmatter: {
-    date: Date;
-    title: string;
-    description: string;
-    tags: string[];
-    categories: string[];
-    image: {
-      publicURL: string;
-      childImageSharp: {
-        gatsbyImageData: IGatsbyImageData;
-      };
-    };
-  };
-  id: string;
-  body: string;
-  excerpt: string;
-  slug: string;
-  timeToRead: number;
-  headings: [
-    {
-      value: string;
-      depth: number;
-    },
-  ];
-};
-
 interface DataProps {
   allMdx: {
-    nodes: MdxNode[];
+    nodes: BlogPostMdxNode[];
   };
 }
-
-const mdxToBlogPost = (node: MdxNode): BlogPost => {
-  return {
-    id: node.id,
-    title: node.frontmatter.title,
-    description: node.frontmatter.description,
-    slug: node.slug,
-    date: node.frontmatter.date,
-    timeToRead: node.timeToRead,
-    image: node.frontmatter.image.childImageSharp.gatsbyImageData,
-    tags: node.frontmatter.tags,
-    categories: node.frontmatter.categories,
-  };
-};
 
 const HomePage = ({ data }: PageProps<DataProps>) => {
   return (
@@ -92,27 +50,7 @@ export const query = graphql`
   query {
     allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       nodes {
-        frontmatter {
-          title
-          description
-          date
-          tags
-          categories
-          image {
-            publicURL
-            childImageSharp {
-              gatsbyImageData(width: 700, height: 350)
-            }
-          }
-        }
-        id
-        slug
-        body
-        timeToRead
-        headings {
-          value
-          depth
-        }
+        ...BlogPost
       }
     }
   }
