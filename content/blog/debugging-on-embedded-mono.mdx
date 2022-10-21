@@ -11,7 +11,7 @@ categories:
   - tutorial
 ---
 
-Following up on a previous post that showed <Link to="/blog/embedding-mono-in-cpp">how to embed Mono in a C++ application</Link>, we will see how it is possible to debug C# code that runs on the host application, using Xamarin Studio (or MonoDevelop).
+Following up on a previous post that showed <Link to="/blog/embedding-mono-in-a-c-application">how to embed Mono in a C++ application</Link>, we will see how it is possible to debug C# code that runs on the host application, using Xamarin Studio (or MonoDevelop).
 
 ## Enabling debugging
 
@@ -46,7 +46,7 @@ Next, we have to generate the .mdb file for our assembly, which contains the deb
 custom build step
 Adding a custom build step
 
-We are basically executing pdb2mdb on the target of the project and storing the .mdb file on the target’s path.
+We are basically executing pdb2mdb on the target of the project and storing the .mdb file on the target's path.
 
 > pdb2mdb has a dependency to the Mono.Cecil assembly which is not included in the Mono installation.
 
@@ -60,4 +60,4 @@ Use the same address and port that you used in the C++ code and hit Listen.
 
 > If your assembly is compiled to a library, the Run menu item is not available in Xamarin Studio. To overcome this, add a Custom Command in Project Options → Run → Custom Commands and the debugger menu items will show up.
 
-Now that the debugger is listening to the provided address and port, we can start our C++ application. The program’s execution will now be paused on any breakpoints you set.
+Now that the debugger is listening to the provided address and port, we can start our C++ application. The program's execution will now be paused on any breakpoints you set.

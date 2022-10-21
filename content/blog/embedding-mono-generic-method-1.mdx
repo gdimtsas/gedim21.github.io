@@ -12,9 +12,9 @@ categories:
 toc: false
 ---
 
-On <Link to="/blog/embedding-mono-in-cpp">a previous post</Link> we saw how to embed the Mono runtime in a C++ application, load some C# classes and invoke methods on them. However, when you want to invoke generic methods, things become slightly more complicated.
+On <Link to="/blog/embedding-mono-in-a-c-application">a previous post</Link> we saw how to embed the Mono runtime in a C++ application, load some C# classes and invoke methods on them. However, when you want to invoke generic methods, things become slightly more complicated.
 
-(Edit 8/7/2015: Part 2 of this tutorial can be found <Link to="/blog/embedding-mono-generic-method-2">here</Link>, showing an alternative solution without using C# helper methods)
+(Edit 8/7/2015: Part 2 of this tutorial can be found <Link to="/blog/embedded-mono-invoking-a-c-generic-method-part-2">here</Link>, showing an alternative solution without using C# helper methods)
 
 Let's say we want to invoke the `GenericMethod<T>(T t)` from the following class:
 
@@ -60,7 +60,7 @@ int main()
   MonoObject* testClassInstance = mono_object_new(monoDomain, testClass);
 ```
 
-At this point, we just just need to lookup the GenericMethod method and mono_runtime_invoke it. If we took the usual route and tried this:
+At this point, we just just need to lookup the GenericMethod method and mono_runtime_invoke it. If we took the usual route and tried this:
 
 ```cpp
 MonoMethod* genericMethod = mono_class_get_method_from_name(testClass, 
@@ -135,6 +135,6 @@ mono_runtime_invoke(specializedMethod, testClassInstance, args, &exception);
 ```
 
 ## Final notes
-* For methods that take more than one template parameter, we can modify MakeGenericMethod to accept an array to Types. For the sake of simplicity this isn't portrayed here, but it's fairly easy to implement.
-* It is also possible to implement the MakeGenericMethod method using entirely the mono API, without using any C# code. But that would take a lot of boilerplate code. It's a lot easier to include it as C# code in a utility class.
+* For methods that take more than one template parameter, we can modify `MakeGenericMethod` to accept an array to Types. For the sake of simplicity this isn't portrayed here, but it's fairly easy to implement.
+* It is also possible to implement the `MakeGenericMethod` method using entirely the mono API, without using any C# code. But that would take a lot of boilerplate code. It's a lot easier to include it as C# code in a utility class.
 * Full source code can be found [here](https://gist.github.com/gedim21/c50e46173e9e55083ed4).
