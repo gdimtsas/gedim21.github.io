@@ -1,5 +1,5 @@
 import { graphql, PageProps } from 'gatsby';
-import Layout from '../../components/Layout';
+import { Layout } from '@/components/common';
 import BlogListItem from '@/components/blog/BlogListItem';
 import { BlogPostMdxNode, mdxToBlogPost } from '@/model';
 
@@ -9,7 +9,7 @@ type DataProps = {
   };
 };
 
-const HomePage = ({ data }: PageProps<DataProps>) => {
+const BlogHomePage = ({ data }: PageProps<DataProps>) => {
   return (
     <Layout>
       <h1>My latest posts</h1>
@@ -30,4 +30,4 @@ export const query = graphql`
   }
 `;
 
-export default HomePage;
+export default BlogHomePage;

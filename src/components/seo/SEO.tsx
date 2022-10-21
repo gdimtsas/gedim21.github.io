@@ -11,16 +11,26 @@ import {
   WebSite,
 } from 'schema-dts';
 import moment from 'moment';
-import { SiteMetadata, Person, BlogPost, SocialLink } from '@/model';
+import {
+  SiteMetadata,
+  Person,
+  BlogPost,
+  SocialLink,
+  toSiteMetadata,
+} from '@/model';
+
+import { graphql, useStaticQuery } from 'gatsby';
 
 type Props = {
-  siteMetadata: SiteMetadata;
   post?: BlogPost;
-  author: Person;
 };
 
-const SEO = ({ siteMetadata, post, author }: Props) => {
+const SEO = ({ post }: Props) => {
   const { pathname } = useLocation();
+
+  const { site } = useStaticQuery(query);
+  const author = site.siteMetadata.owner;
+  const siteMetadata: SiteMetadata = toSiteMetadata(site.siteMetadata);
 
   const me: SchemaPerson = {
     '@type': 'Person',
@@ -134,7 +144,9 @@ const SEO = ({ siteMetadata, post, author }: Props) => {
 
   const graphSchema: Graph = {
     '@context': 'https://schema.org',
-    '@graph': [me, website, webpage, breadcrumb, post && article],
+    '@graph': post
+      ? [me, website, webpage, breadcrumb, article]
+      : [me, website, webpage, breadcrumb],
   };
 
   return (
@@ -145,7 +157,10 @@ const SEO = ({ siteMetadata, post, author }: Props) => {
       >
         <html lang={siteMetadata.language} />
         <meta name="description" content={siteMetadata.description} />
-        <meta name="image" content={post ? post.imageUrl : siteMetadata.imageUrl} />
+        <meta
+          name="image"
+          content={post ? post.imageUrl : siteMetadata.imageUrl}
+        />
         <script type="application/ld+json">
           {JSON.stringify(graphSchema)}
         </script>
@@ -175,5 +190,13 @@ const SEO = ({ siteMetadata, post, author }: Props) => {
     </>
   );
 };
+
+const query = graphql`
+  query {
+    site {
+      ...SiteMetadata
+    }
+  }
+`;
 
 export default SEO;

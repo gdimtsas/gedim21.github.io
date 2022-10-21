@@ -1,7 +1,7 @@
-import { BlogPost } from '@/model/BlogPost';
+import { BlogPost } from '@/model';
 import { useState } from 'react';
 import Search from '../Search';
-import PostCard from './post/PostCard';
+import { PostCard } from './post';
 
 const LatestPosts = ({ blogPosts }: { blogPosts: BlogPost[] }) => {
   const [query, setQuery] = useState('');

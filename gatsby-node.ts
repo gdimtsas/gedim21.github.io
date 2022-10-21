@@ -135,7 +135,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const postTemplate = path.resolve('src/templates/post.tsx');
 
   posts.forEach((node) => {
-    console.log(`Creating post page for ${node.fields.slug}`);
     createPage({
       // As mentioned above you could also query something else like frontmatter.title above and use a helper function
       // like slugify to create a slug
@@ -168,7 +167,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const tagTemplate = path.resolve('src/templates/tag.tsx');
 
   Object.keys(tags).forEach((tag) => {
-    console.log(`Creating tag page for ${tag}`);
     createPage({
       path: `/blog/tag/${tag}/`,
       component: tagTemplate,

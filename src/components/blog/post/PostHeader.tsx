@@ -1,7 +1,7 @@
 import { BlogPost } from '@/model/BlogPost';
-import ArticleHeaderMetadata from './ArticleHeaderMetadata';
+import { ArticleHeaderMetadata } from './';
 
-const PostHeader = ({ post }: { post: BlogPost }) => {
+export const PostHeader = ({ post }: { post: BlogPost }) => {
   return (
     <>
       <h1>{post.title}</h1>
@@ -9,5 +9,3 @@ const PostHeader = ({ post }: { post: BlogPost }) => {
     </>
   );
 };
-
-export default PostHeader;

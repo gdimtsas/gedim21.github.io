@@ -11,7 +11,7 @@ interface TableOfContentsProps {
   headings: Heading[];
 }
 
-const useIntersectionObserver = (setActiveId: any) => {
+export const useIntersectionObserver = (setActiveId: any) => {
   const headingElementsRef = useRef({});
   useEffect(() => {
     const callback = (headings: any) => {
@@ -54,7 +54,7 @@ const useIntersectionObserver = (setActiveId: any) => {
   }, [setActiveId]);
 };
 
-const TableOfContents = ({ headings }: TableOfContentsProps) => {
+export const TableOfContents = ({ headings }: TableOfContentsProps) => {
   const [activeId, setActiveId] = useState();
   useIntersectionObserver(setActiveId);
 
@@ -79,4 +79,3 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
     </ul>
   );
 };
-export default TableOfContents;

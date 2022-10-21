@@ -32,3 +32,35 @@ export const BlogPostFragment = graphql`
     }
   }
 `;
+
+export const SiteSiteMetadataOwnerFragment = graphql`
+  fragment SiteSiteMetadataOwnerFragment on SiteSiteMetadataOwner {
+    name
+    surname
+    twitter
+    facebook
+    social {
+      uri
+      label
+    }
+    location
+    title
+  }
+`;
+
+export const SiteMetadataFragment = graphql`
+  fragment SiteMetadata on Site {
+    siteMetadata {
+      title
+      titleTemplate
+      description
+      headline
+      owner {
+        ...SiteSiteMetadataOwnerFragment
+      }
+      siteUrl
+      language
+      siteImage
+    }
+  }
+`;

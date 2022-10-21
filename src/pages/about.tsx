@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import Layout from '../components/Layout';
+import { Layout } from '@/components/common';
 
 const HomePage = () => {
   const { allFile } = useStaticQuery(graphql`

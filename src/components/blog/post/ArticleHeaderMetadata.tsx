@@ -7,7 +7,7 @@ type ArticleHeaderMetadataProps = {
   timeToRead: number;
 };
 
-const ArticleHeaderMetadata = ({
+export const ArticleHeaderMetadata = ({
   date,
   timeToRead,
 }: ArticleHeaderMetadataProps) => {
@@ -26,4 +26,3 @@ const ArticleHeaderMetadata = ({
   );
 };
 
-export default ArticleHeaderMetadata;

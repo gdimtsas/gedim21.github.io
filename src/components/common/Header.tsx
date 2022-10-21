@@ -1,9 +1,7 @@
 import { Link } from 'gatsby';
-import ThemeToggle from '@/components/ThemeToggle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { ThemeToggle } from '@/components/common';
 
-const Header = () => {
+export const Header = () => {
   return (
     <>
       <header className="shadow">

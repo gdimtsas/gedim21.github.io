@@ -3,7 +3,7 @@ import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tag from '../Tag';
 
-const PostTags = ({ post }: { post: BlogPost }) => {
+export const PostTags = ({ post }: { post: BlogPost }) => {
   return (
     <>
       <span>
@@ -15,5 +15,3 @@ const PostTags = ({ post }: { post: BlogPost }) => {
     </>
   );
 };
-
-export default PostTags;

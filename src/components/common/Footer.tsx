@@ -1,4 +1,4 @@
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="mx-auto mt-16 w-full max-w-container py-8 ">
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
@@ -46,5 +46,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

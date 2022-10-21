@@ -1,4 +1,4 @@
-import ArticleHeaderMetadata from '@/components/blog/post/ArticleHeaderMetadata';
+import { ArticleHeaderMetadata } from '@/components/blog/post';
 import Tag from '@/components/blog/Tag';
 import { BlogPost } from '@/model';
 import Link from 'gatsby-link';

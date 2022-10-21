@@ -2,7 +2,7 @@ import { ThemeToggler } from 'gatsby-plugin-dark-mode';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
-const ThemeToggle = () => {
+export const ThemeToggle = () => {
   return (
     <ThemeToggler>
       {({
@@ -27,5 +27,3 @@ const ThemeToggle = () => {
     </ThemeToggler>
   );
 };
-
-export default ThemeToggle;

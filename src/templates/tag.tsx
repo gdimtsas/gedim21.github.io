@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
-import Layout from '@/components/Layout';
-import PostCard from '@/components/blog/post/PostCard';
+import { Layout } from '@/components/common';
+import { PostCard } from '@/components/blog/post';
 import { BlogPostMdxNode, mdxToBlogPost } from '@/model/BlogPost';
 
 interface DataProps {

@@ -1,5 +1,5 @@
 import { graphql, PageProps } from 'gatsby';
-import Layout from '@/components/Layout';
+import { Layout } from '@/components/common';
 import { BlogPost, BlogPostMdxNode, mdxToBlogPost } from '@/model/BlogPost';
 import FeaturedContent from '@/components/blog/FeaturedContent';
 import Topics from '@/components/blog/Topics';

@@ -1,18 +1,18 @@
-import { graphql, PageProps, Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 import { MDXProvider } from '@mdx-js/react';
 import { GiscusComments } from '@/components/blog/comments/Giscus';
-import { Sharing } from '@/components/blog/post/Sharing';
-import ArticleSEO from '@/components/seo/SEO';
-import PostCard from '@/components/blog/post/PostCard';
-import TableOfContents from '@/components/blog/post/TableOfContents';
-import AuthorBar from '@/components/blog/post/AuthorBar';
-import Layout from '@/components/Layout';
-import PostHeader from '@/components/blog/post/PostHeader';
-import PostTags from '@/components/blog/post/PostTags';
-import PostCategories from '@/components/blog/post/PostCategories';
+import {
+  PostCard,
+  AuthorBar,
+  TableOfContents,
+  PostHeader,
+  PostCategories,
+  PostTags,
+  Sharing,
+} from '@/components/blog/post';
+import { Layout, CodeBlock } from '@/components/common';
 import { Person, BlogPost, BlogPostMdxNode, mdxToBlogPost } from '@/model';
-import CodeBlock from '@/components/CodeBlock';
 
 type DataProps = {
   mdx: BlogPostMdxNode;
@@ -34,10 +34,9 @@ const components = {
 
 const PostPage = ({ data, children }: { data: DataProps; children: any }) => {
   const post: BlogPost = mdxToBlogPost(data.mdx, data.site);
-  const author: Person = data.site.siteMetadata.owner;
 
   return (
-    <Layout author={author} post={post}>
+    <Layout post={post}>
       <div className="container mx-auto pt-4 flex flex-col md:flex-row">
         <aside className="flex-initial md:w-32 min-w-0 md:block md:basis-1/4 md:px-4">
           <AuthorBar />
@@ -107,12 +106,8 @@ export const query = graphql`
     site {
       siteMetadata {
         owner {
-          name
-          surname
-          twitter
-          facebook
+          ...SiteSiteMetadataOwnerFragment
         }
-        siteUrl
       }
     }
   }

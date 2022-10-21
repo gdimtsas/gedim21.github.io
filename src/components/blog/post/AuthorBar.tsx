@@ -5,21 +5,13 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { OutboundLink } from 'gatsby-plugin-google-gtag';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-const AuthorBar = () => {
+export const AuthorBar = () => {
   const { site, allFile } = useStaticQuery(graphql`
     query MyQuery {
       site {
         siteMetadata {
           owner {
-            name
-            surname
-            title
-            location
-            social {
-              label
-              uri
-              icon
-            }
+            ...SiteSiteMetadataOwnerFragment
           }
         }
       }
@@ -69,4 +61,3 @@ const AuthorBar = () => {
   );
 };
 
-export default AuthorBar;
