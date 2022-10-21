@@ -4,12 +4,10 @@ import Tag from './Tag';
 const Topics = () => {
   const result = useStaticQuery(graphql`
     {
-      allMdx(filter: { fileAbsolutePath: { glob: "**/blog/**/*" } }) {
-        edges {
-          node {
-            frontmatter {
-              tags
-            }
+      allMdx {
+        nodes {
+          frontmatter {
+            tags
           }
         }
       }
@@ -18,9 +16,9 @@ const Topics = () => {
 
   const tags: string[] = [];
 
-  result.allMdx.edges
-    .filter(({ node }) => node.frontmatter.tags)
-    .forEach(({ node }) => {
+  result.allMdx.nodes
+    .filter((node) => node.frontmatter.tags)
+    .forEach((node) => {
       const tagsList = node.frontmatter.tags
         .map((tag: string) => tag.trim())
         .filter((tag: string) => tag.length > 0);

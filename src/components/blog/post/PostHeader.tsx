@@ -1,11 +1,7 @@
 import { BlogPost } from '@/model/BlogPost';
 import ArticleHeaderMetadata from './ArticleHeaderMetadata';
 
-interface PostHeaderProps {
-  post: BlogPost;
-}
-
-const PostHeader = ({ post }: PostHeaderProps) => {
+const PostHeader = ({ post }: { post: BlogPost }) => {
   return (
     <>
       <h1>{post.title}</h1>

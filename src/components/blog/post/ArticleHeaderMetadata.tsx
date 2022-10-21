@@ -20,7 +20,7 @@ const ArticleHeaderMetadata = ({
       <span className="px-2">-</span>
       <span>
         <FontAwesomeIcon icon={faClock} className="mr-2"></FontAwesomeIcon>
-        {timeToRead} min read
+        {timeToRead.toFixed(0)} min read
       </span>
     </p>
   );

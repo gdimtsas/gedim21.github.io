@@ -1,76 +1,38 @@
-import { graphql, PageProps } from 'gatsby';
+import { graphql, PageProps, Link } from 'gatsby';
 
+import { MDXProvider } from '@mdx-js/react';
 import { GiscusComments } from '@/components/blog/comments/Giscus';
 import { Sharing } from '@/components/blog/post/Sharing';
 import ArticleSEO from '@/components/seo/SEO';
 import PostCard from '@/components/blog/post/PostCard';
-import { IGatsbyImageData } from 'gatsby-plugin-image';
-import { BlogPost } from '@/model/BlogPost';
 import TableOfContents from '@/components/blog/post/TableOfContents';
 import AuthorBar from '@/components/blog/post/AuthorBar';
 import Layout from '@/components/Layout';
 import PostHeader from '@/components/blog/post/PostHeader';
-import PostBody from '@/components/blog/post/PostBody';
 import PostTags from '@/components/blog/post/PostTags';
 import PostCategories from '@/components/blog/post/PostCategories';
-import { Person } from '@/model/Person';
-
-type MdxNode = {
-  frontmatter: {
-    date: Date;
-    title: string;
-    description: string;
-    tags: string[];
-    categories: string[];
-    image: {
-      publicURL: string;
-      childImageSharp: {
-        gatsbyImageData: IGatsbyImageData;
-      };
-    };
-  };
-  id: string;
-  body: string;
-  excerpt: string;
-  slug: string;
-  timeToRead: number;
-  headings: [
-    {
-      value: string;
-      depth: number;
-    },
-  ];
-};
+import { Person, BlogPost, BlogPostMdxNode, mdxToBlogPost } from '@/model';
+import CodeBlock from '@/components/CodeBlock';
 
 type DataProps = {
-  mdx: MdxNode;
+  mdx: BlogPostMdxNode;
+  relatedMdxs: {
+    posts: BlogPostMdxNode[];
+  };
   site: {
     siteMetadata: {
       owner: Person;
       siteUrl: string;
     };
   };
-  relatedMdxs: {
-    posts: MdxNode[];
-  };
 };
 
-const mdxToBlogPost = (node: MdxNode, site: any): BlogPost => {
-  return {
-    id: node.id,
-    title: node.frontmatter.title,
-    description: node.frontmatter.description,
-    slug: node.slug,
-    date: node.frontmatter.date,
-    timeToRead: node.timeToRead,
-    image: node.frontmatter.image.childImageSharp.gatsbyImageData,
-    imageUrl: `${site.siteMetadata.siteUrl}${node.frontmatter.image.publicURL}`,
-    tags: node.frontmatter.tags,
-    categories: node.frontmatter.categories,
-  };
+const components = {
+  pre: CodeBlock,
+  Link,
 };
 
-const PostPage = ({ data }: PageProps<DataProps>) => {
+const PostPage = ({ data, children }: { data: DataProps; children: any }) => {
   const post: BlogPost = mdxToBlogPost(data.mdx, data.site);
   const author: Person = data.site.siteMetadata.owner;
 
@@ -87,7 +49,7 @@ const PostPage = ({ data }: PageProps<DataProps>) => {
             </header>
 
             <section>
-              <PostBody body={data.mdx.body} />
+              <MDXProvider components={components}>{children}</MDXProvider>
             </section>
 
             <footer className="mt-10">
@@ -102,7 +64,7 @@ const PostPage = ({ data }: PageProps<DataProps>) => {
               <section className="my-8">
                 <Sharing
                   siteUrl={data.site.siteMetadata.siteUrl}
-                  slug={data.mdx.slug}
+                  slug={data.mdx.fields.slug}
                   title={data.mdx.frontmatter.title}
                   tags={data.mdx.frontmatter.tags}
                 />
@@ -133,28 +95,13 @@ const PostPage = ({ data }: PageProps<DataProps>) => {
 };
 
 export const query = graphql`
-  query ($id: String) {
+  query ($id: String!) {
     mdx(id: { eq: $id }) {
-      frontmatter {
-        title
-        description
-        date
-        tags
-        categories
-        image {
-          publicURL
-          childImageSharp {
-            gatsbyImageData(width: 500, height: 250)
-          }
-        }
-      }
-      id
-      slug
-      body
-      timeToRead
-      headings {
-        value
-        depth
+      ...BlogPost
+    }
+    relatedMdxs(parent: { id: { eq: $id } }) {
+      posts {
+        ...BlogPost
       }
     }
     site {
@@ -166,31 +113,6 @@ export const query = graphql`
           facebook
         }
         siteUrl
-      }
-    }
-    relatedMdxs(parent: { id: { eq: $id } }) {
-      posts {
-        frontmatter {
-          title
-          description
-          date
-          tags
-          categories
-          image {
-            publicURL
-            childImageSharp {
-              gatsbyImageData(width: 700, height: 350)
-            }
-          }
-        }
-        id
-        slug
-        body
-        timeToRead
-        headings {
-          value
-          depth
-        }
       }
     }
   }

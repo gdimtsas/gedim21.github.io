@@ -1,5 +1,5 @@
 import type { GatsbyConfig } from 'gatsby';
-import type { Person, SocialLink } from './src/model/'
+import type { Person, SocialLink } from './src/model/';
 
 const socialLinks: SocialLink[] = [
   {label: 'Email', uri: 'mailto:gedim21@gmail.com', icon: ['fa', 'envelope']},
@@ -15,8 +15,8 @@ const me: Person = {
   location: 'Athens, Greece',
   twitter: '@gedim21',
   facebook: 'gedim21',
-  social: socialLinks
-}
+  social: socialLinks,
+};
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -48,7 +48,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        icon: 'static/static-images/logo.png'
+        icon: 'static/static-images/logo.png',
       },
     },
     {
@@ -77,20 +77,22 @@ const config: GatsbyConfig = {
             },
           },
           'gatsby-remark-autolink-headers',
+          {
+            resolve: 'gatsby-remark-related-posts',
+            options: {
+              target_node: 'Mdx',
+              getMarkdown: (node) => node.body,
+            },
+          },
         ],
-      },
-    },
-    {
-      resolve: 'gatsby-remark-related-posts',
-      options: {
-        target_node: 'Mdx',
-        getMarkdown: (node) => node.rawBody,
+        mdxOptions: {
+          
+        },
       },
     },
     'gatsby-plugin-postcss',
     'gatsby-plugin-sharp',
     'gatsby-plugin-image',
-    'gatsby-remark-images',
     'gatsby-transformer-sharp',
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-robots-txt`,
@@ -119,7 +121,15 @@ const config: GatsbyConfig = {
           {
             allMdx {
               nodes {
-                slug
+                fields {
+                  slug
+                  timeToRead {
+                    minutes
+                    text
+                    time
+                    words
+                  }
+                }
                 frontmatter {
                   date
                   categories
@@ -128,9 +138,8 @@ const config: GatsbyConfig = {
                   tags
                 }
                 id
-                rawBody
+                body
                 excerpt
-                timeToRead
               }
             }
           }
@@ -148,7 +157,17 @@ const config: GatsbyConfig = {
         // List of keys to store and make available in your UI. The values of
         // the keys are taken from the normalizer function below.
         // Default: all fields
-        store: ['id', 'slug', 'title', 'description', 'tags', 'categories', 'date', 'timeToRead', 'excerpt'],
+        store: [
+          'id',
+          'slug',
+          'title',
+          'description',
+          'tags',
+          'categories',
+          'date',
+          'timeToRead',
+          'excerpt',
+        ],
 
         // Function used to map the result from the GraphQL query. This should
         // return an array of items to index in the form of flat objects
@@ -162,10 +181,10 @@ const config: GatsbyConfig = {
             date: node.frontmatter.date,
             tags: node.frontmatter.tags,
             categories: node.frontmatter.categories,
-            body: node.rawBody,
-            slug: node.slug,
+            body: node.body,
+            slug: node.fields.slug,
             excerpt: node.excerpt,
-            timeToRead: node.timeToRead,
+            timeToRead: node.fields.timeToRead,
           })),
       },
     },
@@ -174,7 +193,7 @@ const config: GatsbyConfig = {
       options: {
         // You can add multiple tracking ids and a pageview event will be fired for all of them.
         trackingIds: [
-          "G-DLBBL8V0GS", // Google Analytics / GA
+          'G-DLBBL8V0GS', // Google Analytics / GA
           //"AW-CONVERSION_ID", // Google Ads / Adwords / AW
           //"DC-FLOODIGHT_ID", // Marketing Platform advertising products (Display & Video 360, Search Ads 360, and Campaign Manager)
         ],
@@ -192,8 +211,8 @@ const config: GatsbyConfig = {
           // Setting this parameter is also optional
           respectDNT: false,
           // Avoids sending pageview hits from custom paths
-          exclude: ["/preview/**", "/do-not-track/me/too/"],
-        // Defaults to https://www.googletagmanager.com
+          exclude: ['/preview/**', '/do-not-track/me/too/'],
+          // Defaults to https://www.googletagmanager.com
           //origin: "YOUR_SELF_HOSTED_ORIGIN",
         },
       },
