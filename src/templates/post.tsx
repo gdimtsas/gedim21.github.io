@@ -105,6 +105,7 @@ export const query = graphql`
     }
     site {
       siteMetadata {
+        siteUrl
         owner {
           ...SiteSiteMetadataOwnerFragment
         }
