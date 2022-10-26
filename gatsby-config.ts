@@ -24,7 +24,7 @@ const config: GatsbyConfig = {
     titleTemplate: '%s - BlogNotFoundException',
     description: '//TODO find a blog description',
     headline: '//TODO find a blog description',
-    siteUrl: 'https://giorgosdimtsas.net',
+    siteUrl: 'https://www.giorgosdimtsas.net',
     language: 'en',
     siteImage: '/static-images/logo.png',
     owner: me,
