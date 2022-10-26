@@ -217,6 +217,12 @@ const config: GatsbyConfig = {
         },
       },
     },
+    {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: `ca-pub-4733788787541071`
+      },
+    },
   ],
   jsxRuntime: `automatic`,
 };
