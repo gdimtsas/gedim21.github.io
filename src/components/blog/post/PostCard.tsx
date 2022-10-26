@@ -6,7 +6,7 @@ import Tag from '@/components/blog/Tag';
 export const PostCard = ({ post }: { post: BlogPost }) => {
   return (
     <div className="md:max-w-lg bg-white rounded-lg border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
-      <Link to={`/blog/${post.slug}`}>
+      <Link to={`/blog/${post.slug}/`}>
         <GatsbyImage className="rounded-t-lg" image={post.image} alt="" />
       </Link>
       <div className="p-4">
@@ -15,7 +15,7 @@ export const PostCard = ({ post }: { post: BlogPost }) => {
             {post.categories[0]}
           </p>
         )}
-        <Link to={`/blog/${post.slug}`}>
+        <Link to={`/blog/${post.slug}/`}>
           <span className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
             {post.title}
           </span>

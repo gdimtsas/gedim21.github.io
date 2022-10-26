@@ -7,7 +7,7 @@ const BlogListItem = ({ blogPost }: { blogPost: BlogPost }) => {
   return (
     <article key={blogPost.id} className="mb-4">
       <h2 className="flex flex-wrap font-bold text-gray-600 dark:text-gray-100">
-        <Link to={`/blog/${blogPost.slug}`}>{blogPost.title}</Link>
+        <Link to={`/blog/${blogPost.slug}/`}>{blogPost.title}</Link>
       </h2>
 
       <ArticleHeaderMetadata

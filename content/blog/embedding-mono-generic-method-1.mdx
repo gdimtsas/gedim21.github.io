@@ -12,9 +12,9 @@ categories:
 toc: false
 ---
 
-On <Link to="/blog/embedding-mono-in-a-c-application">a previous post</Link> we saw how to embed the Mono runtime in a C++ application, load some C# classes and invoke methods on them. However, when you want to invoke generic methods, things become slightly more complicated.
+On <Link to="/blog/embedding-mono-in-a-c-application/">a previous post</Link> we saw how to embed the Mono runtime in a C++ application, load some C# classes and invoke methods on them. However, when you want to invoke generic methods, things become slightly more complicated.
 
-(Edit 8/7/2015: Part 2 of this tutorial can be found <Link to="/blog/embedded-mono-invoking-a-c-generic-method-part-2">here</Link>, showing an alternative solution without using C# helper methods)
+(Edit 8/7/2015: Part 2 of this tutorial can be found <Link to="/blog/embedded-mono-invoking-a-c-generic-method-part-2/">here</Link>, showing an alternative solution without using C# helper methods)
 
 Let's say we want to invoke the `GenericMethod<T>(T t)` from the following class:
 
