@@ -1,0 +1,62 @@
+---
+title: Collecting opentelemetry metrics on sprinboot
+description: How to use the debugger of Visual Studio to debug Embedded Mono code
+date: 2015-04-27 20:35:12 +0200
+image: ../images/embedded-mono-debugging/teaser.png
+tags: 
+  - java
+  - sprinboot
+  - opentelemetry
+categories: 
+  - programming
+  - tutorial
+---
+
+## New project
+
+Let's create a new springboot app; head to [start.spring.io](start.sprint.io)  , add web and actuator, version 3.0.0-RC1
+
+new controller
+
+```java
+@RestController
+@RequestMapping("/hello")
+public class HelloController {
+
+    @GetMapping
+    public String hello(@RequestParam String name) {
+        return String.format("Hello %s!", name);
+    }
+    
+}
+```
+
+http://localhost:8080/hello?name=John
+
+## Deps
+
+Add dependency
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+  <scope>runtime</scope>
+</dependency>
+```
+
+enable actuator in application.yml (or .properties)
+
+Run app and check
+
+```
+http://localhost:8080/actuator/prometheus
+```
+
+```
+management.endpoints.web.exposure.include: prometheus
+```
