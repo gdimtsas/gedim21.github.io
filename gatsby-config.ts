@@ -74,6 +74,7 @@ const config: GatsbyConfig = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1200,
+              backgroundColor: `transparent`,
             },
           },
           'gatsby-remark-autolink-headers',
