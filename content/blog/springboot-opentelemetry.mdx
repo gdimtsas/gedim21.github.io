@@ -1,7 +1,7 @@
 ---
 title: Collecting Spring Boot telemetry data with OpenTelemetry
 description: How to collect metrics, traces and logs from a Spring Boot application with OpenTelemetry and export them to different observability backends
-date: 2022-11-05 20:35:12 +0200
+date: 2022-11-15 22:26:00 +0200
 image: ../images/springboot-observability/springboot-observability.png
 tags: 
   - java
@@ -28,16 +28,16 @@ Then we will export this data to Jaeger and Prometheus and use Grafana for visua
 ## OpenTelemetry
 
 OpenTelemetry (OTel for short) is a set of tools that instrument, generate, collect and export telemetry data (logs, traces and metrics).
-OpenTelemtry can export telemetry data directly to different backends, like Jaeger, zipkin and prometheus.
+OpenTelemetry can export telemetry data directly to different backends, like Jaeger, zipkin and prometheus.
 But it can also export to a central collector that will receive the data, process it and then export to the different backends.
 
 ## Running the OpenTelemetry collector
 
-In this tutorial, our microservice will push telemetry data to OpenTelemetry Collector which in turn will push traces to Jaeger and metrics to Prometheus.
+In this tutorial, our microservice will push telemetry data to OpenTelemetry Collector which in turn will push traces to Jaeger and expose metrics for Prometheus to pull.
 
 ![OpenTelemetry Collector](../images/springboot-observability/open-telemetry-collector.png)
 
-We'll run OpenTelemetry Collector, Jaeger, Prometheus and Grafana with docker.
+We'll run OpenTelemetry Collector, Jaeger, Prometheus and Grafana with docker, using the follow docker-compose file:
 
 ```yaml
 version: "3"
@@ -83,7 +83,7 @@ We are also exposing port *8889*; the collector will be exposing metrics data th
 
 ### OpenTelemetry Collector configuration
 
-This is the configuration for OpenTelemetry Collector. We need to define receivers, processors and collector, and then bind them in pipelines:
+This is the configuration for OpenTelemetry Collector. We need to define receivers, processors and exporters, and then bind them in pipelines:
 
 ```yaml
 receivers:
@@ -114,8 +114,10 @@ service:
 
 ```
 
-First, we define a receiver to receive telemetry data in OTLP format. We won't use any processors for this tutorial. Then we define a couple of exporterts. One to export data in Promentheus format and one in Jaeger format.
-Finally, we define one pipeline for traces, which will receive otlp data and export it to jaeger; and one for metrics that will also receive otlp data and export to prometheus.
+First, we define a receiver to receive telemetry data in OTLP format. 
+We won't use any processors for this tutorial.
+Then we define a couple of exporterts. One to export data in Promentheus format and one in Jaeger format.
+Finally, we define one pipeline for traces, which will receive otlp data and export it to Jaeger; and one for metrics that will also receive otlp data and export to Prometheus.
 
 ### Promentheus configuration
 
@@ -154,7 +156,8 @@ java -javaagent:../agent/opentelemetry-javaagent.jar -jar inventory-0.0.1-SNAPSH
 The agent will instrument our code and will generate and export telemetry data.
 By default, it uses OTLP exporter configured to send data to OpenTelemetry collector at http://localhost:4317.
 
-After a few seconds, metrics will appear under http://localhost:8889/metrics. This is the endpoint that we configured earlier, which exposes metrics in Promentheus format, and will return metrics similar to this:
+A few seconds after we start our application, metrics will appear under http://localhost:8889/metrics. 
+This is the endpoint that we configured earlier, which exposes metrics in Promentheus format, and will return metrics similar to this:
 
 ```text
 ...
@@ -167,7 +170,7 @@ db_client_connections_create_time_bucket{job="inventory",pool_name="HikariPool-1
 ...
 ```
 
-For traces, we have first to call an endpoint in our microservice. After a GET request to /items/1, we can find traces in Jaeger:
+For traces, we first have to call an endpoint in our microservice. After a GET request to /items/1, we can find traces in Jaeger:
 
 ![Jaeger traces](../images/springboot-observability/jaeger.png)
 
@@ -228,3 +231,5 @@ public MeterRegistry otelRegistry() {
 ## Summary
 
 In this post, we examined how to capture telemetry data from a Spring Boot application using the OpenTelemetry agent, export them to OpenTelemetry collector and then forward them to Jaeger and Prometheus.
+
+The source code for this post can be found [here](https://github.com/gedim21/blog/tree/master/springboot-observability).
