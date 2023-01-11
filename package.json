@@ -56,7 +56,7 @@
     "gatsby-remark-images": "~6.24.0",
     "gatsby-remark-related-posts": "~2.0.2",
     "gatsby-source-filesystem": "~4.24.0",
-    "gatsby-transformer-remark": "~5.24.0",
+    "gatsby-transformer-remark": "~5.25.1",
     "gatsby-transformer-sharp": "~4.24.0",
     "github-slugger": "1.4.0",
     "mdast-util-to-string": "2",
