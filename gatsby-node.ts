@@ -1,22 +1,13 @@
-import type { GatsbyNode } from 'gatsby';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-
-export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
-  actions,
-}) => {
-  actions.setWebpackConfig({
-    resolve: {
-      plugins: [new TsconfigPathsPlugin()],
-    },
-  });
-};
+import GithubSlugger from 'github-slugger';
 
 // add timeToRead and slug fields to MDX nodes
 const readingTime = require(`reading-time`);
-const slugger = require('github-slugger');
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
+  
+  const slugger = new GithubSlugger();
+  
   if (node.internal.type === `Mdx`) {
     createNodeField({
       node,
