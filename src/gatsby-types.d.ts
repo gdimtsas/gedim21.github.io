@@ -1393,8 +1393,8 @@ type Mdx = Node & {
   readonly body: Maybe<Scalars['String']>;
   readonly children: ReadonlyArray<Node>;
   readonly excerpt: Maybe<Scalars['String']>;
-  readonly fields: Maybe<relatedMdxsPostsFields>;
-  readonly frontmatter: Maybe<relatedMdxsPostsFrontmatter>;
+  readonly fields: Maybe<MdxFields>;
+  readonly frontmatter: Maybe<MdxFrontmatter>;
   readonly headings: Maybe<ReadonlyArray<Maybe<MdxHeading>>>;
   readonly id: Scalars['ID'];
   readonly internal: Internal;
@@ -1461,8 +1461,8 @@ type MdxFieldSelector = {
   readonly body: InputMaybe<FieldSelectorEnum>;
   readonly children: InputMaybe<NodeFieldSelector>;
   readonly excerpt: InputMaybe<FieldSelectorEnum>;
-  readonly fields: InputMaybe<relatedMdxsPostsFieldsFieldSelector>;
-  readonly frontmatter: InputMaybe<relatedMdxsPostsFrontmatterFieldSelector>;
+  readonly fields: InputMaybe<MdxFieldsFieldSelector>;
+  readonly frontmatter: InputMaybe<MdxFrontmatterFieldSelector>;
   readonly headings: InputMaybe<MdxHeadingFieldSelector>;
   readonly id: InputMaybe<FieldSelectorEnum>;
   readonly internal: InputMaybe<InternalFieldSelector>;
@@ -1470,12 +1470,60 @@ type MdxFieldSelector = {
   readonly tableOfContents: InputMaybe<FieldSelectorEnum>;
 };
 
+type MdxFields = {
+  readonly slug: Maybe<Scalars['String']>;
+  readonly timeToRead: Maybe<MdxFieldsTimeToRead>;
+};
+
+type MdxFieldsFieldSelector = {
+  readonly slug: InputMaybe<FieldSelectorEnum>;
+  readonly timeToRead: InputMaybe<MdxFieldsTimeToReadFieldSelector>;
+};
+
+type MdxFieldsFilterInput = {
+  readonly slug: InputMaybe<StringQueryOperatorInput>;
+  readonly timeToRead: InputMaybe<MdxFieldsTimeToReadFilterInput>;
+};
+
+type MdxFieldsSortInput = {
+  readonly slug: InputMaybe<SortOrderEnum>;
+  readonly timeToRead: InputMaybe<MdxFieldsTimeToReadSortInput>;
+};
+
+type MdxFieldsTimeToRead = {
+  readonly minutes: Maybe<Scalars['Float']>;
+  readonly text: Maybe<Scalars['String']>;
+  readonly time: Maybe<Scalars['Int']>;
+  readonly words: Maybe<Scalars['Int']>;
+};
+
+type MdxFieldsTimeToReadFieldSelector = {
+  readonly minutes: InputMaybe<FieldSelectorEnum>;
+  readonly text: InputMaybe<FieldSelectorEnum>;
+  readonly time: InputMaybe<FieldSelectorEnum>;
+  readonly words: InputMaybe<FieldSelectorEnum>;
+};
+
+type MdxFieldsTimeToReadFilterInput = {
+  readonly minutes: InputMaybe<FloatQueryOperatorInput>;
+  readonly text: InputMaybe<StringQueryOperatorInput>;
+  readonly time: InputMaybe<IntQueryOperatorInput>;
+  readonly words: InputMaybe<IntQueryOperatorInput>;
+};
+
+type MdxFieldsTimeToReadSortInput = {
+  readonly minutes: InputMaybe<SortOrderEnum>;
+  readonly text: InputMaybe<SortOrderEnum>;
+  readonly time: InputMaybe<SortOrderEnum>;
+  readonly words: InputMaybe<SortOrderEnum>;
+};
+
 type MdxFilterInput = {
   readonly body: InputMaybe<StringQueryOperatorInput>;
   readonly children: InputMaybe<NodeFilterListInput>;
   readonly excerpt: InputMaybe<StringQueryOperatorInput>;
-  readonly fields: InputMaybe<relatedMdxsPostsFieldsFilterInput>;
-  readonly frontmatter: InputMaybe<relatedMdxsPostsFrontmatterFilterInput>;
+  readonly fields: InputMaybe<MdxFieldsFilterInput>;
+  readonly frontmatter: InputMaybe<MdxFrontmatterFilterInput>;
   readonly headings: InputMaybe<MdxHeadingFilterListInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
   readonly internal: InputMaybe<InternalFilterInput>;
@@ -1485,6 +1533,54 @@ type MdxFilterInput = {
 
 type MdxFilterListInput = {
   readonly elemMatch: InputMaybe<MdxFilterInput>;
+};
+
+type MdxFrontmatter = {
+  readonly categories: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly date: Maybe<Scalars['Date']>;
+  readonly description: Maybe<Scalars['String']>;
+  readonly image: Maybe<File>;
+  readonly tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly toc: Maybe<Scalars['Boolean']>;
+};
+
+
+type MdxFrontmatter_dateArgs = {
+  difference: InputMaybe<Scalars['String']>;
+  formatString: InputMaybe<Scalars['String']>;
+  fromNow: InputMaybe<Scalars['Boolean']>;
+  locale: InputMaybe<Scalars['String']>;
+};
+
+type MdxFrontmatterFieldSelector = {
+  readonly categories: InputMaybe<FieldSelectorEnum>;
+  readonly date: InputMaybe<FieldSelectorEnum>;
+  readonly description: InputMaybe<FieldSelectorEnum>;
+  readonly image: InputMaybe<FileFieldSelector>;
+  readonly tags: InputMaybe<FieldSelectorEnum>;
+  readonly title: InputMaybe<FieldSelectorEnum>;
+  readonly toc: InputMaybe<FieldSelectorEnum>;
+};
+
+type MdxFrontmatterFilterInput = {
+  readonly categories: InputMaybe<StringQueryOperatorInput>;
+  readonly date: InputMaybe<DateQueryOperatorInput>;
+  readonly description: InputMaybe<StringQueryOperatorInput>;
+  readonly image: InputMaybe<FileFilterInput>;
+  readonly tags: InputMaybe<StringQueryOperatorInput>;
+  readonly title: InputMaybe<StringQueryOperatorInput>;
+  readonly toc: InputMaybe<BooleanQueryOperatorInput>;
+};
+
+type MdxFrontmatterSortInput = {
+  readonly categories: InputMaybe<SortOrderEnum>;
+  readonly date: InputMaybe<SortOrderEnum>;
+  readonly description: InputMaybe<SortOrderEnum>;
+  readonly image: InputMaybe<FileSortInput>;
+  readonly tags: InputMaybe<SortOrderEnum>;
+  readonly title: InputMaybe<SortOrderEnum>;
+  readonly toc: InputMaybe<SortOrderEnum>;
 };
 
 type MdxGroupConnection = {
@@ -1556,8 +1652,8 @@ type MdxSortInput = {
   readonly body: InputMaybe<SortOrderEnum>;
   readonly children: InputMaybe<NodeSortInput>;
   readonly excerpt: InputMaybe<SortOrderEnum>;
-  readonly fields: InputMaybe<relatedMdxsPostsFieldsSortInput>;
-  readonly frontmatter: InputMaybe<relatedMdxsPostsFrontmatterSortInput>;
+  readonly fields: InputMaybe<MdxFieldsSortInput>;
+  readonly frontmatter: InputMaybe<MdxFrontmatterSortInput>;
   readonly headings: InputMaybe<MdxHeadingSortInput>;
   readonly id: InputMaybe<SortOrderEnum>;
   readonly internal: InputMaybe<InternalSortInput>;
@@ -1863,8 +1959,8 @@ type Query_mdxArgs = {
   body: InputMaybe<StringQueryOperatorInput>;
   children: InputMaybe<NodeFilterListInput>;
   excerpt: InputMaybe<StringQueryOperatorInput>;
-  fields: InputMaybe<relatedMdxsPostsFieldsFilterInput>;
-  frontmatter: InputMaybe<relatedMdxsPostsFrontmatterFilterInput>;
+  fields: InputMaybe<MdxFieldsFilterInput>;
+  frontmatter: InputMaybe<MdxFrontmatterFilterInput>;
   headings: InputMaybe<MdxHeadingFilterListInput>;
   id: InputMaybe<StringQueryOperatorInput>;
   internal: InputMaybe<InternalFilterInput>;
@@ -3018,102 +3114,6 @@ type relatedMdxsGroupConnection_minArgs = {
 
 type relatedMdxsGroupConnection_sumArgs = {
   field: relatedMdxsFieldSelector;
-};
-
-type relatedMdxsPostsFields = {
-  readonly slug: Maybe<Scalars['String']>;
-  readonly timeToRead: Maybe<relatedMdxsPostsFieldsTimeToRead>;
-};
-
-type relatedMdxsPostsFieldsFieldSelector = {
-  readonly slug: InputMaybe<FieldSelectorEnum>;
-  readonly timeToRead: InputMaybe<relatedMdxsPostsFieldsTimeToReadFieldSelector>;
-};
-
-type relatedMdxsPostsFieldsFilterInput = {
-  readonly slug: InputMaybe<StringQueryOperatorInput>;
-  readonly timeToRead: InputMaybe<relatedMdxsPostsFieldsTimeToReadFilterInput>;
-};
-
-type relatedMdxsPostsFieldsSortInput = {
-  readonly slug: InputMaybe<SortOrderEnum>;
-  readonly timeToRead: InputMaybe<relatedMdxsPostsFieldsTimeToReadSortInput>;
-};
-
-type relatedMdxsPostsFieldsTimeToRead = {
-  readonly minutes: Maybe<Scalars['Float']>;
-  readonly text: Maybe<Scalars['String']>;
-  readonly time: Maybe<Scalars['Int']>;
-  readonly words: Maybe<Scalars['Int']>;
-};
-
-type relatedMdxsPostsFieldsTimeToReadFieldSelector = {
-  readonly minutes: InputMaybe<FieldSelectorEnum>;
-  readonly text: InputMaybe<FieldSelectorEnum>;
-  readonly time: InputMaybe<FieldSelectorEnum>;
-  readonly words: InputMaybe<FieldSelectorEnum>;
-};
-
-type relatedMdxsPostsFieldsTimeToReadFilterInput = {
-  readonly minutes: InputMaybe<FloatQueryOperatorInput>;
-  readonly text: InputMaybe<StringQueryOperatorInput>;
-  readonly time: InputMaybe<IntQueryOperatorInput>;
-  readonly words: InputMaybe<IntQueryOperatorInput>;
-};
-
-type relatedMdxsPostsFieldsTimeToReadSortInput = {
-  readonly minutes: InputMaybe<SortOrderEnum>;
-  readonly text: InputMaybe<SortOrderEnum>;
-  readonly time: InputMaybe<SortOrderEnum>;
-  readonly words: InputMaybe<SortOrderEnum>;
-};
-
-type relatedMdxsPostsFrontmatter = {
-  readonly categories: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly date: Maybe<Scalars['Date']>;
-  readonly description: Maybe<Scalars['String']>;
-  readonly image: Maybe<File>;
-  readonly tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly title: Maybe<Scalars['String']>;
-  readonly toc: Maybe<Scalars['Boolean']>;
-};
-
-
-type relatedMdxsPostsFrontmatter_dateArgs = {
-  difference: InputMaybe<Scalars['String']>;
-  formatString: InputMaybe<Scalars['String']>;
-  fromNow: InputMaybe<Scalars['Boolean']>;
-  locale: InputMaybe<Scalars['String']>;
-};
-
-type relatedMdxsPostsFrontmatterFieldSelector = {
-  readonly categories: InputMaybe<FieldSelectorEnum>;
-  readonly date: InputMaybe<FieldSelectorEnum>;
-  readonly description: InputMaybe<FieldSelectorEnum>;
-  readonly image: InputMaybe<FileFieldSelector>;
-  readonly tags: InputMaybe<FieldSelectorEnum>;
-  readonly title: InputMaybe<FieldSelectorEnum>;
-  readonly toc: InputMaybe<FieldSelectorEnum>;
-};
-
-type relatedMdxsPostsFrontmatterFilterInput = {
-  readonly categories: InputMaybe<StringQueryOperatorInput>;
-  readonly date: InputMaybe<DateQueryOperatorInput>;
-  readonly description: InputMaybe<StringQueryOperatorInput>;
-  readonly image: InputMaybe<FileFilterInput>;
-  readonly tags: InputMaybe<StringQueryOperatorInput>;
-  readonly title: InputMaybe<StringQueryOperatorInput>;
-  readonly toc: InputMaybe<BooleanQueryOperatorInput>;
-};
-
-type relatedMdxsPostsFrontmatterSortInput = {
-  readonly categories: InputMaybe<SortOrderEnum>;
-  readonly date: InputMaybe<SortOrderEnum>;
-  readonly description: InputMaybe<SortOrderEnum>;
-  readonly image: InputMaybe<FileSortInput>;
-  readonly tags: InputMaybe<SortOrderEnum>;
-  readonly title: InputMaybe<SortOrderEnum>;
-  readonly toc: InputMaybe<SortOrderEnum>;
 };
 
 type relatedMdxsSortInput = {
