@@ -44,7 +44,15 @@ const config: GatsbyConfig = {
       },
     },
   },
+  graphqlTypegen: true,
   plugins: [
+    {
+      resolve: `gatsby-plugin-tsconfig-paths`,
+      options: {
+        configFile: `${__dirname}/tsconfig.json`,
+        silent: true
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -55,14 +63,14 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/content/blog/`,
+        path: `./content/blog/`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/content/images/`,
+        path: `./content/images/`,
       },
     },
     'gatsby-plugin-dark-mode',
