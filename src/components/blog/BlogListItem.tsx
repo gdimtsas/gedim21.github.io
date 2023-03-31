@@ -1,7 +1,7 @@
 import { ArticleHeaderMetadata } from '@/components/blog/post';
 import Tag from '@/components/blog/Tag';
 import { BlogPost } from '@/model';
-import Link from 'gatsby-link';
+import { Link } from 'gatsby-link';
 
 const BlogListItem = ({ blogPost }: { blogPost: BlogPost }) => {
   return (

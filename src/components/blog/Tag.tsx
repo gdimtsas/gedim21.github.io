@@ -1,4 +1,4 @@
-import Link from 'gatsby-link';
+import { Link } from 'gatsby-link';
 
 const Tag = (props: { tag: string }) => {
   return (
