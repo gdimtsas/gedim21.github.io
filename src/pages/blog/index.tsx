@@ -22,7 +22,7 @@ const BlogHomePage = ({ data }: PageProps<DataProps>) => {
 
 export const query = graphql`
   query {
-    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+    allMdx(sort: { frontmatter: { date: DESC } }) {
       nodes {
         ...BlogPost
       }
