@@ -78,12 +78,10 @@ services:
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
     depends_on:
-      - zookeeper
-    networks:
-      - kafka-cluster
-    depends_on:
       zookeeper:
         condition: service_healthy
+    networks:
+      - kafka-cluster
 
   kafka-3:
     image: bitnami/kafka:2.7.0
@@ -99,12 +97,10 @@ services:
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
     depends_on:
-      - zookeeper
-    networks:
-      - kafka-cluster
-    depends_on:
       zookeeper:
         condition: service_healthy
+    networks:
+      - kafka-cluster
 
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
