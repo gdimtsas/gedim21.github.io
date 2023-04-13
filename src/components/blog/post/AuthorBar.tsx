@@ -7,7 +7,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 export const AuthorBar = () => {
   const { site, allFile } = useStaticQuery(graphql`
-    query MyQuery {
+    query AuthorBar {
       site {
         siteMetadata {
           owner {

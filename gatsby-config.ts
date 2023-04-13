@@ -73,6 +73,7 @@ const config: GatsbyConfig = {
         path: `./content/images/`,
       },
     },
+    'gatsby-transformer-json',
     'gatsby-plugin-dark-mode',
     {
       resolve: `gatsby-plugin-mdx`,
@@ -130,6 +131,22 @@ const config: GatsbyConfig = {
           {
             allMdx {
               nodes {
+                frontmatter {
+                  title
+                  description
+                  date(formatString: "MMMM D, YYYY")
+                  tags
+                  categories
+                  image {
+                    publicURL
+                    childImageSharp {
+                      gatsbyImageData(width: 700, height: 350)
+                    }
+                  }
+                }
+                id
+                excerpt
+                body
                 fields {
                   slug
                   timeToRead {
@@ -139,16 +156,6 @@ const config: GatsbyConfig = {
                     words
                   }
                 }
-                frontmatter {
-                  date
-                  categories
-                  description
-                  title
-                  tags
-                }
-                id
-                body
-                excerpt
               }
             }
           }
@@ -176,6 +183,7 @@ const config: GatsbyConfig = {
           'date',
           'timeToRead',
           'excerpt',
+          'image'
         ],
 
         // Function used to map the result from the GraphQL query. This should
@@ -193,7 +201,8 @@ const config: GatsbyConfig = {
             body: node.body,
             slug: node.fields.slug,
             excerpt: node.excerpt,
-            timeToRead: node.fields.timeToRead,
+            timeToRead: node.fields.timeToRead.minutes,
+            image: node.frontmatter.image
           })),
       },
     },

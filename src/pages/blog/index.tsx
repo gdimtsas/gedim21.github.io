@@ -14,7 +14,7 @@ const BlogHomePage = ({ data }: PageProps<DataProps>) => {
     <Layout>
       <h1>My latest posts</h1>
       {data.allMdx.nodes.map((node) => (
-        <BlogListItem blogPost={mdxToBlogPost(node, {})}></BlogListItem>
+        <BlogListItem key={node.id} blogPost={mdxToBlogPost(node, {})}></BlogListItem>
       ))}
     </Layout>
   );

@@ -3129,6 +3129,11 @@ type AboutQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type AboutQueryQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
 
+type AuthorBarQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type AuthorBarQuery = { readonly site: { readonly siteMetadata: { readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null } | null } | null } | null, readonly allFile: { readonly nodes: ReadonlyArray<{ readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
+
 type BlogPostFragment = { readonly id: string, readonly excerpt: string | null, readonly frontmatter: { readonly title: string | null, readonly description: string | null, readonly date: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly categories: ReadonlyArray<string | null> | null, readonly image: { readonly publicURL: string | null, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null, readonly fields: { readonly slug: string | null, readonly timeToRead: { readonly minutes: number | null, readonly text: string | null, readonly time: number | null, readonly words: number | null } | null } | null, readonly headings: ReadonlyArray<{ readonly value: string | null, readonly depth: number | null } | null> | null };
 
 type CommentsConfigQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3162,6 +3167,11 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = { readonly tracedSVG: st
 
 type GatsbyImageSharpFluidLimitPresentationSizeFragment = { readonly maxHeight: number, readonly maxWidth: number };
 
+type LatestPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type LatestPostsQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly excerpt: string | null, readonly frontmatter: { readonly title: string | null, readonly description: string | null, readonly date: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly categories: ReadonlyArray<string | null> | null, readonly image: { readonly publicURL: string | null, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null, readonly fields: { readonly slug: string | null, readonly timeToRead: { readonly minutes: number | null, readonly text: string | null, readonly time: number | null, readonly words: number | null } | null } | null, readonly headings: ReadonlyArray<{ readonly value: string | null, readonly depth: number | null } | null> | null }> } };
+
 type MdxBlogPostQueryVariables = Exact<{
   tag: Scalars['String'];
 }>;
@@ -3169,19 +3179,14 @@ type MdxBlogPostQueryVariables = Exact<{
 
 type MdxBlogPostQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly excerpt: string | null, readonly frontmatter: { readonly title: string | null, readonly description: string | null, readonly date: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly categories: ReadonlyArray<string | null> | null, readonly image: { readonly publicURL: string | null, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null, readonly fields: { readonly slug: string | null, readonly timeToRead: { readonly minutes: number | null, readonly text: string | null, readonly time: number | null, readonly words: number | null } | null } | null, readonly headings: ReadonlyArray<{ readonly value: string | null, readonly depth: number | null } | null> | null }> } };
 
-type MyQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type MyQueryQuery = { readonly site: { readonly siteMetadata: { readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null } | null } | null } | null, readonly allFile: { readonly nodes: ReadonlyArray<{ readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
-
 type SiteMetadataFragment = { readonly siteMetadata: { readonly title: string | null, readonly titleTemplate: string | null, readonly description: string | null, readonly headline: string | null, readonly siteUrl: string | null, readonly language: string | null, readonly siteImage: string | null, readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null } | null } | null };
 
 type SiteSiteMetadataOwnerFragmentFragment = { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null };
 
-type allMdxNodesQueryVariables = Exact<{ [key: string]: never; }>;
+type PageBuilderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type allMdxNodesQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly tags: ReadonlyArray<string | null> | null } | null, readonly internal: { readonly contentFilePath: string | null } }> } };
+type PageBuilderQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly fields: { readonly slug: string | null } | null, readonly frontmatter: { readonly tags: ReadonlyArray<string | null> | null } | null, readonly internal: { readonly contentFilePath: string | null } }> } };
 
 
 }
