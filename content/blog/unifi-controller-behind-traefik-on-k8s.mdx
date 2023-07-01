@@ -1,0 +1,209 @@
+---
+title: Deploying Unifi Controller on kubernetes
+description: How to deploy UniFi Controller behind a Traefik reverse proxy in kubernetes
+date: 2023-04-23 22:26:00 +0200
+image: ../images/springboot-observability/springboot-observability.png
+tags: 
+  - selfhosted
+  - kubernetes
+  - traefik
+  - cert-manager
+categories:
+  - selfhosted
+---
+
+## Intro
+
+Recently I started migrating all my selfhosted applications from standalaone docker containers to kubernetes.
+
+// TODO
+
+## Deploying UniFi Controller
+
+### Namespace
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: unifi-controller
+```
+
+### Persistent Volume Claim
+
+For storage I'm using a [Longhorn](https://longhorn.io/) volume
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: unifi-longhorn-pvc
+  namespace: unifi-controller
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+```
+
+
+### Deployment
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: unifi-controller
+  name: unifi-controller
+  namespace: unifi-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unifi-controller
+  template:
+    metadata:
+      labels:
+        app: unifi-controller
+    spec:
+      containers:
+        - image: lscr.io/linuxserver/unifi-controller:latest
+          name: unifi-controller
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "1024Mi"
+            limits:
+              cpu: "300m"
+              memory: "2048Mi"
+          ports:
+          - name: device-comm
+            containerPort: 8080
+            protocol: TCP
+          - name: stun
+            containerPort: 3478
+            protocol: UDP
+          - name: default-console
+            containerPort: 8443
+            protocol: TCP
+          - name: secure-redirect
+            containerPort: 8843
+            protocol: TCP
+          - name: http-redirect
+            containerPort: 8880
+            protocol: TCP
+          - name: speedtest
+            containerPort: 6789
+            protocol: TCP
+          - name: unifi-disc
+            containerPort: 10001
+            protocol: UDP
+          - name: unifi-disc-l2
+            containerPort: 1900
+            protocol: UDP
+          volumeMounts:
+            - name: unifi-controller-config
+              mountPath: /config
+          env:
+            - name: TZ
+              value: Europe/Athens
+      volumes:
+        - name: unifi-controller-config
+          persistentVolumeClaim:
+            claimName: unifi-longhorn-pvc
+```
+
+### Services
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-controller
+  namespace: unifi-controller
+spec:
+  selector:
+    app: unifi-controller
+  ports:
+    - name: device-comm
+      port: 8080
+      protocol: TCP
+    - name: stun
+      port: 3478
+      protocol: UDP
+    - name: secure-redirect
+      port: 8843
+      protocol: TCP
+    - name: http-redirect
+      port: 8880
+      protocol: TCP
+    - name: speedtest
+      port: 6789
+      protocol: TCP
+    - name: unifi-disc
+      port: 10001
+      protocol: UDP
+    - name: unifi-disc-l2
+      port: 1900
+      protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-controller-ui
+  namespace: unifi-controller
+  annotations:
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+    traefik.ingress.kubernetes.io/service.serverstransport: unifi-controller-unifi-controller-ui@kubernetescrd
+spec:
+  selector:
+    app: unifi-controller
+  ports:
+    - name: default-console
+      port: 8443
+      protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: ServersTransport
+metadata:
+  name: unifi-controller-ui
+  namespace: unifi-controller
+spec:
+  insecureSkipVerify: true
+```
+
+### Ingress
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: unifi-controller
+  namespace: unifi-controller
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: "lets-encrypt-dns"
+spec:
+  tls:
+    - hosts:
+        - unifi.at-sky.net
+      secretName: tls-unifi-ingress-dns
+  rules:
+    - host: unifi.at-sky.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: unifi-controller-ui
+                port:
+                  number: 8443
+```
+
+## TLS
+
+### ClusterIssuer

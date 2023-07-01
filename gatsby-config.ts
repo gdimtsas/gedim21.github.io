@@ -2,10 +2,10 @@ import type { GatsbyConfig } from 'gatsby';
 import type { Person, SocialLink } from './src/model/';
 
 const socialLinks: SocialLink[] = [
-  {label: 'Email', uri: 'mailto:gedim21@gmail.com', icon: ['fa', 'envelope']},
-  {label: 'Twitter', uri: 'https://twitter.com/gedim21', icon: ['fab', 'twitter']},
-  {label: 'Github', uri: 'https://github.com/gedim21', icon: ['fab', 'github']},
-  {label: 'LinkedIn', uri: 'https://www.linkedin.com/in/giorgosdimtsas', icon: ['fab', 'linkedin']}
+  {label: 'Email', uri: 'mailto:gedim21@gmail.com', iconPrefix: 'fas', iconName:'envelope'},
+  {label: 'Twitter', uri: 'https://twitter.com/gedim21', iconPrefix: 'fab', iconName:'twitter'},
+  {label: 'Github', uri: 'https://github.com/gedim21', iconPrefix: 'fab', iconName:'github'},
+  {label: 'LinkedIn', uri: 'https://www.linkedin.com/in/giorgosdimtsas', iconPrefix: 'fab', iconName:'linkedin'}
 ];
 
 const me: Person = {

@@ -5,11 +5,11 @@ import "@fontsource/inter"
 import './src/styles/global.css';
 import './src/styles/typography.css';
 
-import Prism from "prism-react-renderer/prism";
+import Prism from "prismjs";
 (typeof global !== "undefined" ? global : window).Prism = Prism;
 require("prismjs/components/prism-solidity");
 require("prismjs/components/prism-csharp");
-require("prismjs/components/prism-cpp");
+// require("prismjs/components/prism-cpp");
 require("prismjs/components/prism-yaml");
 require("prismjs/components/prism-java");
 

@@ -50,7 +50,7 @@ export const AuthorBar = () => {
             site.siteMetadata.owner.social.map((social: SocialLink) => (
               <li key={social.label} className="inline md:block">
                 <OutboundLink target={'_blank'} href={social.uri}>
-                  <FontAwesomeIcon icon={social.icon} className="mr-2" />
+                  <FontAwesomeIcon icon={[social.iconPrefix, social.iconName]} className="mr-2" />
                   <span className="hidden md:inline">{social.label}</span>
                 </OutboundLink>
               </li>

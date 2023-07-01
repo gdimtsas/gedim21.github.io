@@ -2915,19 +2915,22 @@ type SiteSiteMetadataOwnerFilterInput = {
 };
 
 type SiteSiteMetadataOwnerSocial = {
-  readonly icon: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly iconName: Maybe<Scalars['String']>;
+  readonly iconPrefix: Maybe<Scalars['String']>;
   readonly label: Maybe<Scalars['String']>;
   readonly uri: Maybe<Scalars['String']>;
 };
 
 type SiteSiteMetadataOwnerSocialFieldSelector = {
-  readonly icon: InputMaybe<FieldSelectorEnum>;
+  readonly iconName: InputMaybe<FieldSelectorEnum>;
+  readonly iconPrefix: InputMaybe<FieldSelectorEnum>;
   readonly label: InputMaybe<FieldSelectorEnum>;
   readonly uri: InputMaybe<FieldSelectorEnum>;
 };
 
 type SiteSiteMetadataOwnerSocialFilterInput = {
-  readonly icon: InputMaybe<StringQueryOperatorInput>;
+  readonly iconName: InputMaybe<StringQueryOperatorInput>;
+  readonly iconPrefix: InputMaybe<StringQueryOperatorInput>;
   readonly label: InputMaybe<StringQueryOperatorInput>;
   readonly uri: InputMaybe<StringQueryOperatorInput>;
 };
@@ -2937,7 +2940,8 @@ type SiteSiteMetadataOwnerSocialFilterListInput = {
 };
 
 type SiteSiteMetadataOwnerSocialSortInput = {
-  readonly icon: InputMaybe<SortOrderEnum>;
+  readonly iconName: InputMaybe<SortOrderEnum>;
+  readonly iconPrefix: InputMaybe<SortOrderEnum>;
   readonly label: InputMaybe<SortOrderEnum>;
   readonly uri: InputMaybe<SortOrderEnum>;
 };
@@ -3132,7 +3136,7 @@ type AboutQueryQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ rea
 type AuthorBarQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type AuthorBarQuery = { readonly site: { readonly siteMetadata: { readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null } | null } | null } | null, readonly allFile: { readonly nodes: ReadonlyArray<{ readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
+type AuthorBarQuery = { readonly site: { readonly siteMetadata: { readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null, readonly iconPrefix: string | null, readonly iconName: string | null } | null> | null } | null } | null } | null, readonly allFile: { readonly nodes: ReadonlyArray<{ readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
 
 type BlogPostFragment = { readonly id: string, readonly excerpt: string | null, readonly frontmatter: { readonly title: string | null, readonly description: string | null, readonly date: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly categories: ReadonlyArray<string | null> | null, readonly image: { readonly publicURL: string | null, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null, readonly fields: { readonly slug: string | null, readonly timeToRead: { readonly minutes: number | null, readonly text: string | null, readonly time: number | null, readonly words: number | null } | null } | null, readonly headings: ReadonlyArray<{ readonly value: string | null, readonly depth: number | null } | null> | null };
 
@@ -3179,9 +3183,9 @@ type MdxBlogPostQueryVariables = Exact<{
 
 type MdxBlogPostQuery = { readonly allMdx: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly excerpt: string | null, readonly frontmatter: { readonly title: string | null, readonly description: string | null, readonly date: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly categories: ReadonlyArray<string | null> | null, readonly image: { readonly publicURL: string | null, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null, readonly fields: { readonly slug: string | null, readonly timeToRead: { readonly minutes: number | null, readonly text: string | null, readonly time: number | null, readonly words: number | null } | null } | null, readonly headings: ReadonlyArray<{ readonly value: string | null, readonly depth: number | null } | null> | null }> } };
 
-type SiteMetadataFragment = { readonly siteMetadata: { readonly title: string | null, readonly titleTemplate: string | null, readonly description: string | null, readonly headline: string | null, readonly siteUrl: string | null, readonly language: string | null, readonly siteImage: string | null, readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null } | null } | null };
+type SiteMetadataFragment = { readonly siteMetadata: { readonly title: string | null, readonly titleTemplate: string | null, readonly description: string | null, readonly headline: string | null, readonly siteUrl: string | null, readonly language: string | null, readonly siteImage: string | null, readonly owner: { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null, readonly iconPrefix: string | null, readonly iconName: string | null } | null> | null } | null } | null };
 
-type SiteSiteMetadataOwnerFragmentFragment = { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null } | null> | null };
+type SiteSiteMetadataOwnerFragmentFragment = { readonly name: string | null, readonly surname: string | null, readonly twitter: string | null, readonly facebook: string | null, readonly location: string | null, readonly title: string | null, readonly social: ReadonlyArray<{ readonly uri: string | null, readonly label: string | null, readonly iconPrefix: string | null, readonly iconName: string | null } | null> | null };
 
 type PageBuilderQueryVariables = Exact<{ [key: string]: never; }>;
 
