@@ -179,7 +179,7 @@ For traces, we first have to call an endpoint in our microservice. After a GET r
 The OTel agent will also inject information about spans and traces in each logging event's MDC copy.
 We can configure Spring logging to output the current span and trace id in the logs:
 
-```yml
+```yaml
 logging.pattern.level: '%5p [${spring.application.name:},%mdc{trace_id:-},%mdc{span_id:-}]'
 ```
 

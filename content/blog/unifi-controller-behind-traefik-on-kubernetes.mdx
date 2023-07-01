@@ -1,8 +1,8 @@
 ---
 title: Deploying Unifi Controller on kubernetes
 description: How to deploy UniFi Controller behind a Traefik reverse proxy in kubernetes
-date: 2023-04-23 22:26:00 +0200
-image: ../images/springboot-observability/springboot-observability.png
+date: 2023-07-02 22:26:00 +0200
+image: ../images/unifi-controller-behind-traefik-on-kubernetes/teaser.png
 tags: 
   - selfhosted
   - kubernetes
@@ -14,9 +14,8 @@ categories:
 
 ## Intro
 
-Recently I started migrating all my selfhosted applications from standalaone docker containers to kubernetes.
-
-// TODO
+Recently I started migrating all my selfhosted applications from standalone docker containers to kubernetes. The application that gave me the most trouble to migrate was Ubiquiti's Unifi Controller.
+In this post I'll describe how to deploy the Unifi Controller on kubernetes and access it's console through a Traefik reverse proxy.
 
 ## Deploying UniFi Controller
 
@@ -29,9 +28,9 @@ metadata:
   name: unifi-controller
 ```
 
-### Persistent Volume Claim
+Just the namespace; nothing special here.
 
-For storage I'm using a [Longhorn](https://longhorn.io/) volume
+### Persistent Volume Claim
 
 ```yaml
 apiVersion: v1
@@ -47,6 +46,8 @@ spec:
     requests:
       storage: 5Gi
 ```
+
+For storage I'm using a [Longhorn](https://longhorn.io/) volume, but of course you can use anything you prefer.
 
 
 ### Deployment
@@ -77,7 +78,7 @@ spec:
               cpu: "100m"
               memory: "1024Mi"
             limits:
-              cpu: "300m"
+              cpu: "500m"
               memory: "2048Mi"
           ports:
           - name: device-comm
@@ -116,6 +117,8 @@ spec:
             claimName: unifi-longhorn-pvc
 ```
 
+The deployment is pretty straightforward.
+
 ### Services
 
 ```yaml
@@ -128,9 +131,6 @@ spec:
   selector:
     app: unifi-controller
   ports:
-    - name: device-comm
-      port: 8080
-      protocol: TCP
     - name: stun
       port: 3478
       protocol: UDP
@@ -166,6 +166,22 @@ spec:
       port: 8443
       protocol: TCP
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-controller-dev-com
+  namespace: unifi-controller
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 10.0.0.242
+spec:
+  type: LoadBalancer
+  selector:
+    app: unifi-controller
+  ports:
+    - name: device-comm
+      port: 8080
+      protocol: TCP
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: ServersTransport
 metadata:
@@ -174,6 +190,26 @@ metadata:
 spec:
   insecureSkipVerify: true
 ```
+
+Defining the services for the controller UI console and for device communication was what gave the most trouble. 
+
+#### Controller UI
+
+The UI console is accessed on port 8443 and requires a HTTPS connection. Furthermore, the console's SSL certificate is self signed.
+
+To accomodate for this, I defined a separate service for the UI console, `unifi-controller-ui`, and added the ```traefik.ingress.kubernetes.io/service.serversscheme: https``` annotation so that Traefik will establish a HTTPS connection with the service.
+
+I then created a ```ServersTransport``` object with the ```insecureSkipVerify: true``` option and added referenced it in the service's ```traefik.ingress.kubernetes.io/service.serverstransport``` annotation. This makes Traefik ignore the self signed certificate.
+
+#### Device communication
+
+The service for device communication was more straightforward. I created the `unifi-controller-dev-com` service, and since I'm using Metallb I created a service of type LoadBalancer and set it's IP with the annotation `metallb.universe.tf/loadBalancerIPs`
+
+After the controller is up and running, I changed the Inform Host in the settings to the same IP, so that the devices will be able to communicate with the controller:
+
+![Inform host](../images/unifi-controller-behind-traefik-on-kubernetes/inform.png)
+
+With this, the network devices will be able to be adopted properly by the controller.
 
 ### Ingress
 
@@ -189,10 +225,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - unifi.at-sky.net
+        - *redacted*
       secretName: tls-unifi-ingress-dns
   rules:
-    - host: unifi.at-sky.net
+    - host: *redacted*
       http:
         paths:
           - path: /
@@ -204,6 +240,12 @@ spec:
                   number: 8443
 ```
 
-## TLS
+Finally I created an Ingress object to access the Controller's UI. Since I'm using [cert-manager](https://cert-manager.io/) to automatically issue `Let's Encrypt` certificates, I added the relevant annotations to the object.
 
-### ClusterIssuer
+![Trafeik dashboard](../images/unifi-controller-behind-traefik-on-kubernetes/result.png)
+
+## Conclusion
+
+And that's it! It took some troubleshooting but I finally managed to run Unifi Controller on kubernetes! 🎉
+
+![Controller](../images/unifi-controller-behind-traefik-on-kubernetes/controller.png)
