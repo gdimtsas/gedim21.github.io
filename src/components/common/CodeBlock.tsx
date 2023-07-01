@@ -1,4 +1,5 @@
 import { Highlight, themes } from "prism-react-renderer";
+import Prism from "prismjs";
 
 export const CodeBlock = (props: any) => {
   const className = props.children.props.className || "";
@@ -6,6 +7,7 @@ export const CodeBlock = (props: any) => {
 
   return (
     <Highlight
+      prism={Prism}
       theme={themes.duotoneDark}
       code={props.children.props.children.trim()}
       language={

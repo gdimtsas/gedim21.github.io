@@ -7,11 +7,14 @@ import './src/styles/typography.css';
 
 import Prism from "prismjs";
 (typeof global !== "undefined" ? global : window).Prism = Prism;
-require("prismjs/components/prism-solidity");
+require("prismjs/components/prism-bash");
 require("prismjs/components/prism-csharp");
-// require("prismjs/components/prism-cpp");
-require("prismjs/components/prism-yaml");
 require("prismjs/components/prism-java");
+require("prismjs/components/prism-json");
+require("prismjs/components/prism-c");
+require("prismjs/components/prism-cpp");
+require("prismjs/components/prism-solidity");
+require("prismjs/components/prism-yaml");
 
 // The following import prevents a Font Awesome icon server-side rendering bug,
 // where the icons flash from a very large icon down to a properly sized one:
