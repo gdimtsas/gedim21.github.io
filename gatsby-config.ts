@@ -1,5 +1,5 @@
 import type { GatsbyConfig } from 'gatsby';
-import type { Person, SocialLink } from './src/model/';
+import { mdxToBlogPost, type Person, type SocialLink } from './src/model/';
 
 const socialLinks: SocialLink[] = [
   {label: 'Email', uri: 'mailto:gedim21@gmail.com', iconPrefix: 'fas', iconName:'envelope'},
@@ -146,7 +146,6 @@ const config: GatsbyConfig = {
                 }
                 id
                 excerpt
-                body
                 fields {
                   slug
                   timeToRead {
@@ -156,6 +155,11 @@ const config: GatsbyConfig = {
                     words
                   }
                 }
+                headings {
+                  value
+                  depth
+                }
+                body
               }
             }
           }
@@ -168,7 +172,7 @@ const config: GatsbyConfig = {
         // List of keys to index. The values of the keys are taken from the
         // normalizer function below.
         // Default: all fields
-        index: ['title', 'description', 'body', 'tags', 'categories'],
+        index: ['title', 'description', 'searchableBody', 'tags', 'categories'],
 
         // List of keys to store and make available in your UI. The values of
         // the keys are taken from the normalizer function below.
@@ -191,19 +195,7 @@ const config: GatsbyConfig = {
         // containing properties to index. The objects must contain the `ref`
         // field above (default: 'id'). This is required.
         normalizer: ({ data }) =>
-          data.allMdx.nodes.map((node) => ({
-            id: node.id,
-            title: node.frontmatter.title,
-            description: node.frontmatter.description,
-            date: node.frontmatter.date,
-            tags: node.frontmatter.tags,
-            categories: node.frontmatter.categories,
-            body: node.body,
-            slug: node.fields.slug,
-            excerpt: node.excerpt,
-            timeToRead: node.fields.timeToRead.minutes,
-            image: node.frontmatter.image
-          })),
+          data.allMdx.nodes.map((node) => mdxToBlogPost(node)),
       },
     },
     {

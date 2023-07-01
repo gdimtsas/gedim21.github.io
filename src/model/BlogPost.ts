@@ -12,6 +12,7 @@ export interface BlogPost {
   imageUrl?: string;
   tags: string[];
   categories: string[];
+  searchableBody?: string
 }
 
 export type BlogPostMdxNode = {
@@ -42,6 +43,7 @@ export type BlogPostMdxNode = {
       depth: number;
     },
   ];
+  body: string
 };
 
 
@@ -57,5 +59,6 @@ export const mdxToBlogPost = (node: BlogPostMdxNode, site?: any): BlogPost => {
     imageUrl: `${site?.siteMetadata?.siteUrl}${node.frontmatter.image.publicURL}`,
     tags: node.frontmatter.tags,
     categories: node.frontmatter.categories,
+    searchableBody: node.body
   };
 };
