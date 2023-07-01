@@ -38,7 +38,7 @@ const HomePage = ({ data }: PageProps<DataProps>) => {
         <h2>Latest posts</h2>
         <LatestPosts
           blogPosts={data.allMdx.nodes
-            .slice(0, 8)
+            .slice(0, 100)
             .map((node) => mdxToBlogPost(node))}
         />
       </section>

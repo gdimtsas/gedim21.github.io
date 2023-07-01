@@ -1,6 +1,6 @@
-import { ThemeToggler } from 'gatsby-plugin-dark-mode';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { ThemeToggler } from "gatsby-plugin-dark-mode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 export const ThemeToggle = () => {
   return (
@@ -12,16 +12,12 @@ export const ThemeToggle = () => {
         theme: string;
         toggleTheme: (themeName: string) => void;
       }) => (
-        <label className="cursor-pointer">
-          {theme === 'dark' && (
-            <FontAwesomeIcon
-              icon={faMoon}
-              onClick={() => toggleTheme('light')}
-            />
-          )}
-          {theme === 'light' && (
-            <FontAwesomeIcon icon={faSun} onClick={() => toggleTheme('dark')} />
-          )}
+        <label
+          className="cursor-pointer"
+          onClick={() => toggleTheme(theme === "dark" ? "light" : "dark")}
+        >
+          {theme === "dark" && <FontAwesomeIcon icon={faMoon} />}
+          {theme === "light" && <FontAwesomeIcon icon={faSun} />}
         </label>
       )}
     </ThemeToggler>

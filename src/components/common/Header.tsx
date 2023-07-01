@@ -1,5 +1,5 @@
-import { Link } from 'gatsby';
-import { ThemeToggle } from '@/components/common';
+import { Link } from "gatsby";
+import { ThemeToggle } from "@/components/common";
 
 export const Header = () => {
   return (
@@ -20,10 +20,10 @@ export const Header = () => {
           </Link>
           <nav className="md:ml-auto flex flex-wrap items-center justify-center">
             <Link
-              to={`/blog`}
+              to={`/`}
               className="mr-5 hover:text-gray-900 dark:hover:text-gray-500"
             >
-              Blog
+              Home
             </Link>
             <Link
               to={`/about`}
