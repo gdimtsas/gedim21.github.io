@@ -42,6 +42,8 @@ export const SiteSiteMetadataOwnerFragment = graphql`
     social {
       uri
       label
+      iconPrefix
+      iconName
     }
     location
     title

@@ -1,20 +1,18 @@
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/palenight';
+import { Highlight, themes } from "prism-react-renderer";
 
 export const CodeBlock = (props: any) => {
-  const className = props.children.props.className || '';
+  const className = props.children.props.className || "";
   const matches = className.match(/language-(?<lang>.*)/);
 
   return (
     <Highlight
-      {...defaultProps}
+      theme={themes.duotoneDark}
       code={props.children.props.children.trim()}
       language={
         matches && matches.groups && matches.groups.lang
           ? matches.groups.lang
-          : ''
+          : ""
       }
-      theme={theme}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>

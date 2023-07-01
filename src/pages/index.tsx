@@ -47,7 +47,7 @@ const HomePage = ({ data }: PageProps<DataProps>) => {
 };
 
 export const query = graphql`
-  query {
+  query LatestPosts {
     allMdx(sort: { frontmatter: { date: DESC } }) {
       nodes {
         ...BlogPost
