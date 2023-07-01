@@ -1,22 +1,9 @@
-import { BlogPost } from "@/model";
+import { BlogPost, SearchResult } from "@/model";
 import { graphql, useStaticQuery } from "gatsby";
 import { IGatsbyImageData } from "gatsby-plugin-image";
 import { useFlexSearch } from "react-use-flexsearch";
 import BlogListItem from "./blog/BlogListItem";
 import { PostCard } from "./blog/post";
-
-type SearchResult = {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  tags: string[];
-  categories: string[];
-  date: Date;
-  timeToRead: number;
-  excerpt: string;
-  image: IGatsbyImageData;
-};
 
 const Search = ({ query, setQuery }: { query: string; setQuery: any }) => {
   const data = useStaticQuery(graphql`
@@ -47,7 +34,7 @@ const Search = ({ query, setQuery }: { query: string; setQuery: any }) => {
   };
 
   return (
-    <div className="my-2">
+    <div className="my-4">
       <input
         type="text"
         value={query}
