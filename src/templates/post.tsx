@@ -1,7 +1,7 @@
-import { graphql, Link } from 'gatsby';
+import { graphql, Link } from "gatsby";
 
-import { MDXProvider } from '@mdx-js/react';
-import { GiscusComments } from '@/components/blog/comments/Giscus';
+import { MDXProvider } from "@mdx-js/react";
+import { GiscusComments } from "@/components/blog/comments/Giscus";
 import {
   PostCard,
   AuthorBar,
@@ -10,9 +10,9 @@ import {
   PostCategories,
   PostTags,
   Sharing,
-} from '@/components/blog/post';
-import { Layout, CodeBlock } from '@/components/common';
-import { Person, BlogPost, BlogPostMdxNode, mdxToBlogPost } from '@/model';
+} from "@/components/blog/post";
+import { Layout, CodeBlock } from "@/components/common";
+import { Person, BlogPost, BlogPostMdxNode, mdxToBlogPost } from "@/model";
 
 type DataProps = {
   mdx: BlogPostMdxNode;
@@ -73,15 +73,19 @@ const PostPage = ({ data, children }: { data: DataProps; children: any }) => {
                 <GiscusComments />
               </section>
 
-              <h3>You may also enjoy</h3>
-              <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-                {data.relatedMdxs.posts.slice(0, 3).map((post) => (
-                  <PostCard
-                    key={post.id}
-                    post={mdxToBlogPost(post, data.site)}
-                  />
-                ))}
-              </section>
+              {data.relatedMdxs && (
+                <>
+                  <h3>You may also enjoy</h3>
+                  <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                    {data.relatedMdxs?.posts.slice(0, 3).map((post) => (
+                      <PostCard
+                        key={post.id}
+                        post={mdxToBlogPost(post, data.site)}
+                      />
+                    ))}
+                  </section>
+                </>
+              )}
             </footer>
           </article>
         </main>

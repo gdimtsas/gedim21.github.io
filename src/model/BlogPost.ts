@@ -43,7 +43,7 @@ export type BlogPostMdxNode = {
       depth: number;
     },
   ];
-  body: string
+  body?: string
 };
 
 
