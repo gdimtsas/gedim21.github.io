@@ -2,11 +2,11 @@ import {
   faGithub,
   faLinkedin,
   faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
-import { Layout } from '@/components/common';
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { graphql, useStaticQuery } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
+import { Layout } from "@/components/common";
 
 const HomePage = () => {
   const { allFile } = useStaticQuery(graphql`
@@ -31,7 +31,7 @@ const HomePage = () => {
           />
         </div>
 
-        <div className="grow md:ml-8">
+        <section className="grow md:ml-8">
           <h1>Hey there! 🎉</h1>
           <p>
             My name is <strong>Giorgos Dimtsas</strong>. I am a Software
@@ -67,7 +67,19 @@ const HomePage = () => {
             . Also feel free to leave your comments in the blog posts with your
             feedback or your insights.
           </p>
-        </div>
+          <section>
+            <h2>About this blog</h2>
+            <p>
+              This blog is written from scratch using React, Typescript, Gatsby
+              and Tailwind CSS. You can find the source code
+              <FontAwesomeIcon
+                icon={faGithub}
+                className="mx-2"
+              ></FontAwesomeIcon>
+              <a href="https://github.com/gedim21/gedim21.github.io">here</a>
+            </p>
+          </section>
+        </section>
       </div>
     </Layout>
   );

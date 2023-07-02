@@ -3,10 +3,12 @@
 To start the project locally, run:
 
 ```bash
-yarn start
+yarn dev
 ```
 
 Open `http://localhost:8000` with your browser to see the result.
+
+Open `http://localhost:8000/___graphql` for GraphiQL.
 
 ## Documentation
 
@@ -22,14 +24,10 @@ Open `http://localhost:8000` with your browser to see the result.
 
 ### Scripts
 
-- `yarn start` — Starts the application in development mode at `http://localhost:8000`.
+- `yarn dev` — Starts the application in development mode at `http://localhost:8000`.
 - `yarn build` — Compile your application and make it ready for deployment.
 - `yarn serve` — Serve the production build of your site
 - `yarn clean` — Wipe out the cache (`.cache` folder).
-- `yarn type-check` — Validate code using TypeScript compiler.
-- `yarn lint` — Runs ESLint for all files in the `src` directory.
-- `yarn format` — Runs Prettier for all files in the `src` directory.
-- `yarn test` — Run tests.
 
 ### Path Mapping
 
